@@ -1,0 +1,65 @@
+#recommend {
+    width: 100vw;
+    height: calc(100vh - 70px);
+    box-sizing: border-box;
+    padding: 0 40px;
+
+    .row {
+        width: 100%;
+
+        &+.row {
+            margin-top: 20px;
+        }
+
+        .item {
+            float: left;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+
+            &+.item {
+                margin-left: 20px;
+            }
+            
+            &.focus {
+                transform: scale(1.05);
+                box-shadow: 0 0 2rpx 5rpx #fff;
+                transition: 500ms;
+            }
+        }
+
+        .loop(@i) when (@i <=6) {
+            &.row-@{i} {
+                @itemWidth: calc((100vw - 40px * 2 - 20px * (@i - 1)) / @i);
+
+                .item {
+                    width: @itemWidth;
+                }
+
+                .item when(@i =2) {
+                    height: calc(@itemWidth / 280 * 150);
+                }
+
+                .item when(@i =3) {
+                    height: calc(@itemWidth / 380 * 180);
+                }
+
+                .item when(@i =4) {
+                    height: calc(@itemWidth / 380 * 180);
+                }
+
+                .item when(@i =5) {
+                    height: calc(@itemWidth / 280 * 150);
+                }
+
+                .item when(@i =6) {
+                    height: calc(@itemWidth / 175 * 240);
+                }
+            }
+
+            .loop(@i+1);
+        }
+
+        @i: 2;
+        .loop(@i)
+    }
+}
