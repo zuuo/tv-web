@@ -8,22 +8,77 @@ var keyControl = {
     groups: $(".itemGroup"),
     groupIndex: 0,
 
+    init() {
+        this.setGroups();
+        if (!this.curItem) {
+            this.setCurItem(this.groups.eq(0).find(".item").eq(0));
+        }
+
+        if ($("#menu .menu.active").length == 0) {
+            $("#menu .menu").eq(0).trigger("keyEnter")
+        }
+    },
+
     keyLeft: function() {
-        this.setCurItem(this.curItem.prevAll(".item").eq(0))
+        var targetItem = this.curItem.prevAll(".item").eq(0);
+        if (!targetItem.length) {
+            this.shakeItem("horizontal");
+            return
+        }
+        this.setCurItem(targetItem)
     },
     keyRight: function() {
-        this.setCurItem(this.curItem.nextAll(".item").eq(0))
+        var targetItem = this.curItem.nextAll(".item").eq(0);
+        if (!targetItem.length) {
+            this.shakeItem("horizontal");
+            return
+        }
+        this.setCurItem(targetItem)
     },
-    keyUp: function() {},
-    keyDown: function() {
-        var targetSize = this.groupIndex < this.groups.length ? this.groupIndex + 1 : this.groupIndex;
+    keyUp: function() {
+        var originSize = this.curItemGroup.find(".item").length;
+        this.groupIndex = this.groupIndex - 1;
+        if (this.groupIndex < 0) {
+            this.groupIndex = 0;
+            this.shakeItem("vertical");
+            return
+        }
+        var targetGroup = this.groups.eq(this.groupIndex);
+        var targetSize = targetGroup.find(".item").length;
         var originIndex = this.itemIndex;
-        var targetIndex = this.skipGroup(this.curItemGroup.length, targetSize, originIndex);
-        console.log(targetIndex);
-        this.setCurItem(this)
+        var targetIndex = this.skipGroup(originSize, targetSize, originIndex);
+        var targetItem = targetGroup.find(".item").eq(targetIndex);
+        if (targetItem.hasClass("menu")) {
+            targetItem = $("#menu .menu.active")
+        }
+        this.setCurItem(targetItem);
     },
-    keyEnter: function() {},
-    keyBack: function() {},
+    keyDown: function() {
+        var originSize = this.curItemGroup.find(".item").length;
+        this.groupIndex = this.groupIndex + 1;
+        if (this.groupIndex >= this.groups.length) {
+            this.groupIndex = this.groups.length - 1;
+            this.shakeItem("vertical");
+            return
+        }
+
+        var targetGroup = this.groups.eq(this.groupIndex);
+        var targetSize = targetGroup.find(".item").length;
+        var originIndex = this.itemIndex;
+        var targetIndex = this.skipGroup(originSize, targetSize, originIndex);
+        var targetItem = targetGroup.find(".item").eq(targetIndex);
+        if (this.curItem.hasClass("menu")) {
+            targetIndex = 0;
+        }
+        this.setCurItem(targetItem);
+    },
+    keyEnter: function() {
+        this.curItem.trigger("keyEnter")
+    },
+    keyBack: function() {
+        var target = $(".menu.active")
+        this.setCurItem(target)
+    },
 
     setCurItem(target) {
         this.lastItem = this.curItem;
@@ -42,16 +97,16 @@ var keyControl = {
         this.setCurItemGroup()
 
         this.itemIndex = this.curItemGroup.find(".item").index(this.curItem);
-        console.log(this.itemIndex);
+        this.scrollWrapper()
     },
     setCurItemGroup(target) {
         this.curItemGroup = target || this.curItem.parents(".itemGroup")
+        this.groupIndex = $(".itemGroup").index(this.curItemGroup)
     },
     setGroups() {
         this.groups = $(".itemGroup");
     },
     skipGroup(originSize, targetSize, originIndex) {
-        console.log(originSize, targetSize, originIndex);
         let targetIndex = 0;
         let originSizeMid = originSize / 2;
 
@@ -70,13 +125,58 @@ var keyControl = {
 
         return targetIndex;
     },
-    init() {
-        this.setGroups();
-        if (!this.curItem) {
-            this.setCurItem(this.groups.eq(0).find(".item").eq(0));
+
+    scrollWrapper() {
+        var wrapper = this.curItem.parents(".wrapper");
+        if (wrapper.length == 0) return
+        var curItemDom = this.curItem.get(0);
+        var itemTop = this.curItem.offset()
+        console.log(itemTop);
+    },
+
+    shakeItem(direction) {
+        var direction = direction || "horizontal";
+        if (!this.curItem.hasClass("menu")) {
+            this.curItem.removeClass("horizontalShake");
+            this.curItem.removeClass("verticalShake");
+            setTimeout(function() {
+                keyControl.curItem.addClass(direction + "Shake")
+            });
         }
     },
+    renderRandomImg() {
+        $(".carousel .item").each(function(index, item) {
+            var imgUrl = "/images/380x180/" + (index + 1) + ".jpg"
+            $(item).html('<img src="' + imgUrl + '">');
+        })
+
+        $(".row-2 .item").each(function(index, item) {
+            var imgUrl = "/images/280x150/" + (index + 1) + ".jpg"
+            $(item).html('<img src="' + imgUrl + '">');
+        })
+
+        $(".row-3 .item").each(function(index, item) {
+            var imgUrl = "/images/380x180/" + (index + 1) + ".jpg"
+            $(item).html('<img src="' + imgUrl + '">');
+        })
+
+        $(".row-4 .item").each(function(index, item) {
+            var imgUrl = "/images/380x180/" + (index + 1) + ".jpg"
+            $(item).html('<img src="' + imgUrl + '">');
+        })
+
+        $(".row-5 .item").each(function(index, item) {
+            var imgUrl = "/images/280x150/" + (index + 1) + ".jpg"
+            $(item).html('<img src="' + imgUrl + '">');
+        })
+
+        $(".row-6 .item").each(function(index, item) {
+            var imgUrl = "/images/175x240/" + (index + 1) + ".jpg"
+            $(item).html('<img src="' + imgUrl + '">');
+        })
+    }
 }
+
 
 $(window).on("keyup", function(e) {
     switch (e.keyCode) {
@@ -95,7 +195,8 @@ $(window).on("keyup", function(e) {
         case 13:
             keyControl.keyEnter()
             break;
-        case 27:
+        case 8:
+            console.log("back");
             keyControl.keyBack()
             break;
         default:
@@ -103,14 +204,28 @@ $(window).on("keyup", function(e) {
     }
 })
 
-$("#recommend").load("/snippet/recommend1.html", function() {
-    keyControl.init()
-    console.log(keyControl);
-});
 
 // 绑定事件
-$("#menu .item").bind("changeFocus", function(e) {
-    $("#menu .item").each(function(item, index) {
-
+$("#menu .item")
+    .bind("changeFocus", function(e) {
+        var menuWidth = $("#menu .item").width();
+        var menuIndex = $("#menu .item").index($(this));
+        $("#menuWrap").scrollLeft(menuWidth * menuIndex);
     })
-});
+    .bind("keyEnter", function(e) {
+        $("#menu .item").removeClass("active")
+        $(this).addClass("active");
+        $("#recommend").load("/snippet/recommend" + $(".menu.active").data("recommend") + ".html", function() {
+            keyControl.setGroups()
+            keyControl.renderRandomImg()
+        });
+    });
+
+
+
+
+
+
+
+
+keyControl.init()

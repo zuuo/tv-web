@@ -1,15 +1,22 @@
+@import url(../lib/animation.css);
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
   display: none;
 }
-* {
-  overflow: hidden;
+.clearFix:after,
+.itemGroup:after {
+  content: "";
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  clear: both;
+  height: 0;
 }
 html,
 body {
   width: 100vw;
-  height: 100vw;
+  height: 100vh;
   padding: 0;
   margin: 0;
   overflow: hidden;
@@ -19,6 +26,7 @@ body {
 #menuWrap {
   width: 100%;
   height: 60px;
+  overflow: hidden;
 }
 #menuWrap .itemGroup {
   height: 60px;
@@ -43,4 +51,17 @@ body {
   transform: scale(1.02);
   transition: 500ms;
   background-image: url(../images/icon/menu/menu_focus.png);
+}
+.item.horizontalShake {
+  -webkit-animation: shake-horizontal 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: shake-horizontal 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+.item.verticalShake {
+  -webkit-animation: shake-vertical 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: shake-vertical 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+.item img {
+  -webkit-user-drag: none;
+  width: 100%;
+  height: 100%;
 }
