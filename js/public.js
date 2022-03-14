@@ -145,7 +145,7 @@ var keyControl = {
         }
     },
     renderRandomImg() {
-        $(".carousel .item").each(function(index, item) {
+        $("#carousel .item").each(function(index, item) {
             var imgUrl = "/images/380x180/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
         })
@@ -218,6 +218,32 @@ $("#menu .item")
         $("#recommend").load("/snippet/recommend" + $(".menu.active").data("recommend") + ".html", function() {
             keyControl.setGroups()
             keyControl.renderRandomImg()
+
+            if ($("#carousel").length > 0) {
+                carousel = new Swiper('#carousel', {
+                    autoplay: {
+                        delay: 5000,
+                    },
+                    speed: 300,
+                    initialSlide: 0,
+                    direction: "horizontal",
+                    loop: true,
+                    loopAdditionalSlides: 2,
+                    loopedSlides: 5,
+                    parallax: true,
+                    effect: 'coverflow',
+                    centeredSlides: true,
+                    slidesPerView: 3,
+                    updateOnImagesReady: true,
+                    coverflowEffect: {
+                        rotate: 20,
+                        stretch: 18,
+                        depth: 150,
+                        modifier: 2,
+                        slideShadows: true
+                    },
+                });
+            }
         });
     });
 
