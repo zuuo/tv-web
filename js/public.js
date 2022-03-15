@@ -271,38 +271,30 @@ $("#menu .item")
                     carousel.destroy();
                 }
                 carousel = new Swiper('#carousel', {
-                    autoplay: {
-                        delay: 5000,
-                    },
-                    speed: 300,
-                    initialSlide: 0,
-                    direction: "horizontal",
-                    loop: true,
-                    loopAdditionalSlides: 2,
-                    loopedSlides: 5,
-                    parallax: true,
-                    effect: 'coverflow',
                     centeredSlides: true,
+                    autoplay: 5000,
                     slidesPerView: 3,
-                    updateOnImagesReady: true,
-                    coverflowEffect: {
-                        rotate: 20,
-                        stretch: 18,
+                    loop: true,
+                    //Enable 3D Flow
+                    tdFlow: {
+                        rotate: 30,
+                        stretch: 10,
                         depth: 150,
-                        modifier: 2,
-                        slideShadows: true
-                    },
+                        modifier: 1,
+                        shadows: true
+                    }
                 });
+                console.log(carousel);
                 setTimeout(function() {
-                    carousel.update()
+                    // carousel.update()
                 });
 
                 $("#carousel .item")
                     .bind("keyLeft", function() {
-                        carousel.slidePrev()
+                        carousel.swipePrev()
                     })
                     .bind("keyRight", function() {
-                        carousel.slideNext()
+                        carousel.swipeNext()
                     })
                     .bind("keyUp", function() {
                         keyControl.setCurItem($("#menu .menu.active"));
@@ -314,10 +306,10 @@ $("#menu .item")
                         locationTo("/html/detail.html?id=1")
                     })
                     .bind("cursorFocus", function() {
-                        carousel.autoplay.stop();
+                        carousel.stopAutoplay();
                     })
                     .bind("cursorBlur", function() {
-                        carousel.autoplay.start();
+                        carousel.startAutoplay();
                     })
             }
 
