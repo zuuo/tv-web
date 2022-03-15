@@ -1,9 +1,11 @@
 #recommend {
   width: 100vw;
-  height: calc(100vh - 90px);
-  margin-top: 20px;
-  box-sizing: border-box;
-  padding: 0 40px;
+  height: -webkit-calc(100% - 90px);
+  height: calc(100% - 90px);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 20px 40px;
+  overflow: hidden;
 }
 #recommend .row {
   width: 100%;
@@ -13,45 +15,180 @@
 }
 #recommend .row .item {
   float: left;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   border: 1px solid rgba(255, 255, 255, 0.25);
+  -webkit-transition: 200ms;
+  transition: 200ms;
 }
 #recommend .row .item + .item {
   margin-left: 20px;
 }
 #recommend .row .item.focus {
-  transform: scale(1.05);
-  box-shadow: 0 0 5px 2px #fff;
-  border-radius: 3px;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  -webkit-box-shadow: 0 0 5px 2px #fff;
+          box-shadow: 0 0 5px 2px #fff;
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
+  -webkit-transition: 500ms;
   transition: 500ms;
 }
+#recommend .row.row-first .item {
+  width: -webkit-calc((100vw - 40px * 2 - 20px * (6 - 1)) / 6);
+  width: calc((100vw - 40px * 2 - 20px * (6 - 1)) / 6);
+  height: -webkit-calc(-webkit-calc((100vw - 40px * 2 - 20px * (6 - 1)) / 6) / 165 * 185);
+  height: calc(calc((100vw - 40px * 2 - 20px * (6 - 1)) / 6) / 165 * 185);
+}
 #recommend .row.row-2 .item {
+  width: -webkit-calc((100vw - 40px * 2 - 20px * (2 - 1)) / 2);
   width: calc((100vw - 40px * 2 - 20px * (2 - 1)) / 2);
 }
 #recommend .row.row-2 .item {
+  height: -webkit-calc(-webkit-calc((100vw - 40px * 2 - 20px * (2 - 1)) / 2) / 280 * 150);
   height: calc(calc((100vw - 40px * 2 - 20px * (2 - 1)) / 2) / 280 * 150);
 }
 #recommend .row.row-3 .item {
+  width: -webkit-calc((100vw - 40px * 2 - 20px * (3 - 1)) / 3);
   width: calc((100vw - 40px * 2 - 20px * (3 - 1)) / 3);
 }
 #recommend .row.row-3 .item {
+  height: -webkit-calc(-webkit-calc((100vw - 40px * 2 - 20px * (3 - 1)) / 3) / 380 * 180);
   height: calc(calc((100vw - 40px * 2 - 20px * (3 - 1)) / 3) / 380 * 180);
 }
 #recommend .row.row-4 .item {
+  width: -webkit-calc((100vw - 40px * 2 - 20px * (4 - 1)) / 4);
   width: calc((100vw - 40px * 2 - 20px * (4 - 1)) / 4);
 }
 #recommend .row.row-4 .item {
+  height: -webkit-calc(-webkit-calc((100vw - 40px * 2 - 20px * (4 - 1)) / 4) / 380 * 180);
   height: calc(calc((100vw - 40px * 2 - 20px * (4 - 1)) / 4) / 380 * 180);
 }
 #recommend .row.row-5 .item {
+  width: -webkit-calc((100vw - 40px * 2 - 20px * (5 - 1)) / 5);
   width: calc((100vw - 40px * 2 - 20px * (5 - 1)) / 5);
 }
 #recommend .row.row-5 .item {
+  height: -webkit-calc(-webkit-calc((100vw - 40px * 2 - 20px * (5 - 1)) / 5) / 280 * 150);
   height: calc(calc((100vw - 40px * 2 - 20px * (5 - 1)) / 5) / 280 * 150);
 }
 #recommend .row.row-6 .item {
+  width: -webkit-calc((100vw - 40px * 2 - 20px * (6 - 1)) / 6);
   width: calc((100vw - 40px * 2 - 20px * (6 - 1)) / 6);
 }
 #recommend .row.row-6 .item {
+  height: -webkit-calc(-webkit-calc((100vw - 40px * 2 - 20px * (6 - 1)) / 6) / 175 * 240);
   height: calc(calc((100vw - 40px * 2 - 20px * (6 - 1)) / 6) / 175 * 240);
+}
+#historyRecord {
+  width: -webkit-calc(2 * -webkit-calc((100vw - 40px * 2 - 20px * (6 - 1)) / 6) + 20px);
+  width: calc(2 * calc((100vw - 40px * 2 - 20px * (6 - 1)) / 6) + 20px);
+  height: -webkit-calc(-webkit-calc((100vw - 40px * 2 - 20px * (6 - 1)) / 6) / 165 * 185);
+  height: calc(calc((100vw - 40px * 2 - 20px * (6 - 1)) / 6) / 165 * 185);
+  float: left;
+  margin-right: 20px;
+}
+#historyRecord #history {
+  width: -webkit-calc(65% - 20px);
+  width: calc(65% - 20px);
+  height: 100%;
+  float: left;
+  background-color: #0693d14d;
+}
+#historyRecord #history .history {
+  width: 100%;
+  height: 25%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-bottom: 1px solid rgba(35, 107, 138, 0.6);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+#historyRecord #history .history span:first-child {
+  width: -webkit-calc(100% - 105px);
+  width: calc(100% - 105px);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding-left: 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+#historyRecord #history .history span:last-child {
+  width: 95px;
+  float: right;
+  text-align: right;
+  font-size: 14px;
+  padding-right: 10px;
+}
+#historyRecord #history .history.focus {
+  -webkit-transition: 500ms;
+  transition: 500ms;
+  background: -webkit-linear-gradient(0, #0693d1, rgba(54, 64, 80, 0) 95%);
+}
+#historyRecord #history .history.all {
+  background-color: rgba(197, 194, 194, 0.25);
+  border-top: 1px solid rgba(35, 107, 138, 0.6);
+  border-bottom: unset;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+#historyRecord #historyRight {
+  width: 35%;
+  height: 100%;
+  margin-left: 20px;
+  float: left;
+}
+#historyRecord #historyRight > div {
+  height: -webkit-calc((100% - 20px) / 2);
+  height: calc((100% - 20px) / 2);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-align-content: center;
+          align-content: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  white-space: nowrap;
+  -webkit-box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.35);
+          box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.35);
+  background: -webkit-gradient(linear, left top, right top, from(#0266C4), color-stop(#0697D2), to(#0663C1));
+  background: -webkit-linear-gradient(left, #0266C4, #0697D2, #0663C1);
+  background: linear-gradient(90deg, #0266C4, #0697D2, #0663C1);
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+#historyRecord #historyRight > div.focus {
+  border: 5px solid;
+  -webkit-border-image: -webkit-gradient(linear, left top, right top, from(#04A3FE), color-stop(#019CFD), color-stop(#00F4FC), color-stop(#019CFD), to(#04A3FE)) 5 5;
+  -webkit-border-image: -webkit-linear-gradient(left, #04A3FE, #019CFD, #00F4FC, #019CFD, #04A3FE) 5 5;
+          border-image: -webkit-gradient(linear, left top, right top, from(#04A3FE), color-stop(#019CFD), color-stop(#00F4FC), color-stop(#019CFD), to(#04A3FE)) 5 5;
+          border-image: linear-gradient(90deg, #04A3FE, #019CFD, #00F4FC, #019CFD, #04A3FE) 5 5;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  -webkit-transition: 500ms;
+  transition: 500ms;
+}
+#historyRecord #historyRight #list {
+  margin-top: 20px;
 }

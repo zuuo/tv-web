@@ -1,4 +1,5 @@
 // keyControl
+var carousel;
 var keyControl = {
     curItem: undefined,
     itemIndex: 0,
@@ -8,10 +9,10 @@ var keyControl = {
     groups: $(".itemGroup"),
     groupIndex: 0,
 
-    init() {
+    init: function() {
         this.setGroups();
         if (!this.curItem) {
-            this.setCurItem(this.groups.eq(0).find(".item").eq(0));
+            this.setCurItem(this.groups.eq(this.groupIndex).find(".item").eq(this.itemIndex));
         }
 
         if ($("#menu .menu.active").length == 0) {
@@ -20,6 +21,11 @@ var keyControl = {
     },
 
     keyLeft: function() {
+        if (this.curItem.attr("customJump")) {
+            this.curItem.trigger("keyLeft")
+            return
+        }
+        this.curItem.trigger("keyLeft")
         var targetItem = this.curItem.prevAll(".item").eq(0);
         if (!targetItem.length) {
             this.shakeItem("horizontal");
@@ -28,6 +34,11 @@ var keyControl = {
         this.setCurItem(targetItem)
     },
     keyRight: function() {
+        if (this.curItem.attr("customJump")) {
+            this.curItem.trigger("keyRight")
+            return
+        }
+        this.curItem.trigger("keyRight")
         var targetItem = this.curItem.nextAll(".item").eq(0);
         if (!targetItem.length) {
             this.shakeItem("horizontal");
@@ -36,6 +47,11 @@ var keyControl = {
         this.setCurItem(targetItem)
     },
     keyUp: function() {
+        if (this.curItem.attr("customJump")) {
+            this.curItem.trigger("keyUp")
+            return
+        }
+        this.curItem.trigger("keyUp")
         var originSize = this.curItemGroup.find(".item").length;
         this.groupIndex = this.groupIndex - 1;
         if (this.groupIndex < 0) {
@@ -46,14 +62,20 @@ var keyControl = {
         var targetGroup = this.groups.eq(this.groupIndex);
         var targetSize = targetGroup.find(".item").length;
         var originIndex = this.itemIndex;
-        var targetIndex = this.skipGroup(originSize, targetSize, originIndex);
+        var targetIndex = this.jumpGroup(originSize, targetSize, originIndex);
         var targetItem = targetGroup.find(".item").eq(targetIndex);
         if (targetItem.hasClass("menu")) {
             targetItem = $("#menu .menu.active")
         }
         this.setCurItem(targetItem);
+
     },
     keyDown: function() {
+        if (this.curItem.attr("customJump")) {
+            this.curItem.trigger("keyDown")
+            return
+        }
+        this.curItem.trigger("keyDown")
         var originSize = this.curItemGroup.find(".item").length;
         this.groupIndex = this.groupIndex + 1;
         if (this.groupIndex >= this.groups.length) {
@@ -65,7 +87,7 @@ var keyControl = {
         var targetGroup = this.groups.eq(this.groupIndex);
         var targetSize = targetGroup.find(".item").length;
         var originIndex = this.itemIndex;
-        var targetIndex = this.skipGroup(originSize, targetSize, originIndex);
+        var targetIndex = this.jumpGroup(originSize, targetSize, originIndex);
         var targetItem = targetGroup.find(".item").eq(targetIndex);
         if (this.curItem.hasClass("menu")) {
             targetIndex = 0;
@@ -76,13 +98,17 @@ var keyControl = {
         this.curItem.trigger("keyEnter")
     },
     keyBack: function() {
-        var target = $(".menu.active")
-        this.setCurItem(target)
+        var target = $(".menu.active");
+        if (target.length) {
+            this.setCurItem(target)
+        } else {
+            window.history.back()
+        }
     },
 
-    setCurItem(target) {
+    setCurItem: function(target) {
         this.lastItem = this.curItem;
-        this.curItem = target || $(".item.focus").eq(0);
+        this.curItem = target.eq(0) || $(".item.focus").eq(0);
         if (!this.curItem.length) {
             this.curItem = this.lastItem;
             return
@@ -90,25 +116,26 @@ var keyControl = {
 
         if (this.lastItem) {
             this.lastItem.removeClass("focus");
+            this.lastItem.trigger("cursorBlur")
         }
         this.curItem.addClass("focus");
 
-        this.curItem.trigger("changeFocus")
+        this.curItem.trigger("cursorFocus")
         this.setCurItemGroup()
 
         this.itemIndex = this.curItemGroup.find(".item").index(this.curItem);
         this.scrollWrapper()
     },
-    setCurItemGroup(target) {
+    setCurItemGroup: function(target) {
         this.curItemGroup = target || this.curItem.parents(".itemGroup")
         this.groupIndex = $(".itemGroup").index(this.curItemGroup)
     },
-    setGroups() {
+    setGroups: function() {
         this.groups = $(".itemGroup");
     },
-    skipGroup(originSize, targetSize, originIndex) {
-        let targetIndex = 0;
-        let originSizeMid = originSize / 2;
+    jumpGroup: function(originSize, targetSize, originIndex) {
+        var targetIndex = 0;
+        var originSizeMid = originSize / 2;
 
         targetIndex = (targetSize / originSize) * originIndex;
         if (originSizeMid <= originIndex) {
@@ -126,26 +153,42 @@ var keyControl = {
         return targetIndex;
     },
 
-    scrollWrapper() {
+    scrollWrapper: function() {
         var wrapper = this.curItem.parents(".wrapper");
         if (wrapper.length == 0) return
-        var curItemDom = this.curItem.get(0);
-        var itemTop = this.curItem.offset()
-        console.log(itemTop);
-    },
-
-    shakeItem(direction) {
-        var direction = direction || "horizontal";
-        if (!this.curItem.hasClass("menu")) {
-            this.curItem.removeClass("horizontalShake");
-            this.curItem.removeClass("verticalShake");
-            setTimeout(function() {
-                keyControl.curItem.addClass(direction + "Shake")
-            });
+        var scrollAnchor = this.curItem.parents(".scrollAnchor");
+        if (scrollAnchor.length == 0) {
+            scrollAnchor = this.curItem.parents(".itemGroup")
+        }
+        if (scrollAnchor.get(0).scrollIntoView) {
+            scrollAnchor.get(0).scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            })
+        } else {
+            console.log(scrollAnchor);
+            var anchorTop = scrollAnchor.offset().top;
+            console.log(anchorTop);
+            var anchorHeight = scrollAnchor.outerHeight();
+            var topDistance = anchorTop + anchorHeight / 2;
+            wrapper.scrollTop(anchorTop);
+            console.log(scrollAnchor.offset().top);
         }
     },
-    renderRandomImg() {
-        $("#carousel .item").each(function(index, item) {
+
+    shakeItem: function(direction) {
+        var direction = direction || "horizontal";
+        console.log(this.curItem.attr("disableShake"));
+        if (this.curItem.hasClass("menu") || this.curItem.attr("disableShake")) {
+            return
+        }
+        this.curItem.removeClass("horizontalShake verticalShake");
+        setTimeout(function() {
+            keyControl.curItem.addClass(direction + "Shake")
+        });
+    },
+    renderRandomImg: function() {
+        $("#carousel .swiper-slide").each(function(index, item) {
             var imgUrl = "/images/380x180/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
         })
@@ -174,7 +217,12 @@ var keyControl = {
             var imgUrl = "/images/175x240/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
         })
-    }
+
+        $(".row-first .item").each(function(index, item) {
+            var imgUrl = "/images/175x240/" + (index + 1) + ".jpg"
+            $(item).html('<img src="' + imgUrl + '">');
+        })
+    },
 }
 
 
@@ -196,7 +244,6 @@ $(window).on("keyup", function(e) {
             keyControl.keyEnter()
             break;
         case 8:
-            console.log("back");
             keyControl.keyBack()
             break;
         default:
@@ -207,7 +254,7 @@ $(window).on("keyup", function(e) {
 
 // 绑定事件
 $("#menu .item")
-    .bind("changeFocus", function(e) {
+    .bind("cursorFocus", function(e) {
         var menuWidth = $("#menu .item").width();
         var menuIndex = $("#menu .item").index($(this));
         $("#menuWrap").scrollLeft(menuWidth * menuIndex);
@@ -220,6 +267,9 @@ $("#menu .item")
             keyControl.renderRandomImg()
 
             if ($("#carousel").length > 0) {
+                if (carousel) {
+                    carousel.destroy();
+                }
                 carousel = new Swiper('#carousel', {
                     autoplay: {
                         delay: 5000,
@@ -243,12 +293,98 @@ $("#menu .item")
                         slideShadows: true
                     },
                 });
+                setTimeout(function() {
+                    carousel.update()
+                });
+
+                $("#carousel .item")
+                    .bind("keyLeft", function() {
+                        carousel.slidePrev()
+                    })
+                    .bind("keyRight", function() {
+                        carousel.slideNext()
+                    })
+                    .bind("keyUp", function() {
+                        keyControl.setCurItem($("#menu .menu.active"));
+                    })
+                    .bind("keyDown", function() {
+                        keyControl.setCurItem($("#history .history").eq(0));
+                    })
+                    .bind("keyEnter", function() {
+                        locationTo("/html/detail.html?id=1")
+                    })
+                    .bind("cursorFocus", function() {
+                        carousel.autoplay.stop();
+                    })
+                    .bind("cursorBlur", function() {
+                        carousel.autoplay.start();
+                    })
+            }
+
+            if ($("#historyRecord").length > 0) {
+                $("#history .history")
+                    .bind("keyRight", function() {
+                        keyControl.setCurItem($("#search").eq(0));
+                    })
+                    .bind("keyDown", function() {
+                        keyControl.setCurItem($(this).next(".history"));
+                    })
+                    .bind("keyUp", function() {
+                        keyControl.setCurItem($(this).prev(".history"));
+                    });
+
+                $("#history .history").first().off("keyUp")
+                    .bind("keyUp", function() {
+                        keyControl.setCurItem($("#carousel .swiper-wrapper"));
+                    })
+                $("#history .history.all").off("keyDown")
+                    .bind("keyDown", function() {
+                        keyControl.setCurItem($("#item2-1"));
+                    })
+
+                $("#search").add("#list")
+                    .bind("keyLeft", function() {
+                        keyControl.setCurItem($("#history .history").first());
+                    })
+                    .bind("keyRight", function() {
+                        keyControl.setCurItem($("#item1-1"));
+                    });
+                $("#search")
+                    .bind("keyUp", function() {
+                        keyControl.setCurItem($("#carousel .swiper-wrapper"));
+                    })
+                    .bind("keyDown", function() {
+                        keyControl.setCurItem($("#list"));
+                    })
+                $("#list")
+                    .bind("keyUp", function() {
+                        keyControl.setCurItem($("#search"));
+                    })
+                    .bind("keyDown", function() {
+                        keyControl.setCurItem($("#item2-1"));
+                    })
+
+                $("#item1-1")
+                    .bind("keyUp", function() {
+                        keyControl.setCurItem($("#carousel .swiper-wrapper"));
+                    })
+                    .bind("keyLeft", function() {
+                        keyControl.setCurItem($("#search"));
+                    })
+                    .bind("keyRight", function() {
+                        keyControl.setCurItem($(this).next(".item"));
+                    })
+                    .bind("keyDown", function() {
+                        keyControl.setCurItem($("#item2-1"));
+                    })
             }
         });
     });
 
 
-
+function locationTo(url) {
+    window.location.href = url;
+}
 
 
 
