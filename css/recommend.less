@@ -35,40 +35,37 @@
         &.row-first {
             .item {
                 @i: 6;
-                @itemWidth: calc((100vw - 40px * 2 - @itemSpace * (@i - 1)) / @i);
 
-                width: @itemWidth;
-                height: calc(@itemWidth / 165 * 185);
+                width: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i);
+                height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 165 * 185);
             }
         }
 
         .loop(@i) when (@i <=6) {
 
             &.row-@{i} {
-                @itemWidth: calc((100vw - 40px * 2 - @itemSpace * (@i - 1)) / @i);
-
                 .item {
-                    width: @itemWidth;
+                    width: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i);
                 }
 
                 .item when(@i =2) {
-                    height: calc(@itemWidth / 280 * 150);
+                    height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 280 * 150);
                 }
 
                 .item when(@i =3) {
-                    height: calc(@itemWidth / 380 * 180);
+                    height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 380 * 180);
                 }
 
                 .item when(@i =4) {
-                    height: calc(@itemWidth / 380 * 180);
+                    height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 380 * 180);
                 }
 
                 .item when(@i =5) {
-                    height: calc(@itemWidth / 280 * 150);
+                    height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 280 * 150);
                 }
 
                 .item when(@i =6) {
-                    height: calc(@itemWidth / 175 * 240);
+                    height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 175 * 240);
                 }
             }
 
@@ -83,9 +80,9 @@
 
 #historyRecord {
     @i: 6;
-    @itemWidth: calc((100vw - 40px * 2 - @itemSpace * (@i - 1)) / @i);
-    width: calc(2 * @itemWidth + @itemSpace);
-    height: calc(@itemWidth / 165 * 185);
+    @itemWidth: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i);
+    width: calc(2 * (100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i + @itemSpace);
+    height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 165 * 185);
     float: left;
     margin-right: @itemSpace;
 

@@ -14,10 +14,6 @@ var keyControl = {
         if (!this.curItem) {
             this.setCurItem(this.groups.eq(this.groupIndex).find(".item").eq(this.itemIndex));
         }
-
-        if ($("#menu .menu.active").length == 0) {
-            $("#menu .menu").eq(0).trigger("keyEnter")
-        }
     },
 
     keyLeft: function() {
@@ -64,7 +60,7 @@ var keyControl = {
         var originIndex = this.itemIndex;
         var targetIndex = this.jumpGroup(originSize, targetSize, originIndex);
         var targetItem = targetGroup.find(".item").eq(targetIndex);
-        if (targetItem.hasClass("menu")) {
+        if (targetItem.hasClass("menu") && $("#menu .menu.active").length) {
             targetItem = $("#menu .menu.active")
         }
         this.setCurItem(targetItem);
@@ -96,9 +92,13 @@ var keyControl = {
     },
     keyEnter: function() {
         this.curItem.trigger("keyEnter")
+        if (this.curItem.data("url")) {
+            window.location.href = this.curItem.data("url")
+        }
     },
     keyBack: function() {
         var target = $(".menu.active");
+        console.log(target.length);
         if (target.length) {
             this.setCurItem(target)
         } else {
@@ -163,22 +163,18 @@ var keyControl = {
         if (scrollAnchor.get(0).scrollIntoView) {
             scrollAnchor.get(0).scrollIntoView({
                 behavior: "smooth",
-                block: "center",
+                block: "center"
             })
         } else {
-            console.log(scrollAnchor);
-            var anchorTop = scrollAnchor.offset().top;
-            console.log(anchorTop);
-            var anchorHeight = scrollAnchor.outerHeight();
-            var topDistance = anchorTop + anchorHeight / 2;
-            wrapper.scrollTop(anchorTop);
-            console.log(scrollAnchor.offset().top);
+            // var anchorTop = scrollAnchor.offset().top;
+            // var anchorHeight = scrollAnchor.outerHeight();
+            // var topDistance = anchorTop + anchorHeight / 2;
+            // wrapper.scrollTop(anchorTop);
         }
     },
 
     shakeItem: function(direction) {
         var direction = direction || "horizontal";
-        console.log(this.curItem.attr("disableShake"));
         if (this.curItem.hasClass("menu") || this.curItem.attr("disableShake")) {
             return
         }
@@ -222,11 +218,11 @@ var keyControl = {
             var imgUrl = "/images/175x240/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
         })
-    },
+    }
 }
 
 
-$(window).on("keyup", function(e) {
+$(document).on("keyup", function(e) {
     switch (e.keyCode) {
         case 37:
             keyControl.keyLeft()
@@ -251,127 +247,6 @@ $(window).on("keyup", function(e) {
     }
 })
 
-
-// 绑定事件
-$("#menu .item")
-    .bind("cursorFocus", function(e) {
-        var menuWidth = $("#menu .item").width();
-        var menuIndex = $("#menu .item").index($(this));
-        $("#menuWrap").scrollLeft(menuWidth * menuIndex);
-    })
-    .bind("keyEnter", function(e) {
-        $("#menu .item").removeClass("active")
-        $(this).addClass("active");
-        $("#recommend").load("/snippet/recommend" + $(".menu.active").data("recommend") + ".html", function() {
-            keyControl.setGroups()
-            keyControl.renderRandomImg()
-
-            if ($("#carousel").length > 0) {
-                if (carousel) {
-                    carousel.destroy();
-                }
-                carousel = new Swiper('#carousel', {
-                    centeredSlides: true,
-                    autoplay: 5000,
-                    slidesPerView: 3,
-                    loop: true,
-                    //Enable 3D Flow
-                    tdFlow: {
-                        rotate: 30,
-                        stretch: 10,
-                        depth: 150,
-                        modifier: 1,
-                        shadows: true
-                    }
-                });
-                console.log(carousel);
-                setTimeout(function() {
-                    // carousel.update()
-                });
-
-                $("#carousel .item")
-                    .bind("keyLeft", function() {
-                        carousel.swipePrev()
-                    })
-                    .bind("keyRight", function() {
-                        carousel.swipeNext()
-                    })
-                    .bind("keyUp", function() {
-                        keyControl.setCurItem($("#menu .menu.active"));
-                    })
-                    .bind("keyDown", function() {
-                        keyControl.setCurItem($("#history .history").eq(0));
-                    })
-                    .bind("keyEnter", function() {
-                        locationTo("/html/detail.html?id=1")
-                    })
-                    .bind("cursorFocus", function() {
-                        carousel.stopAutoplay();
-                    })
-                    .bind("cursorBlur", function() {
-                        carousel.startAutoplay();
-                    })
-            }
-
-            if ($("#historyRecord").length > 0) {
-                $("#history .history")
-                    .bind("keyRight", function() {
-                        keyControl.setCurItem($("#search").eq(0));
-                    })
-                    .bind("keyDown", function() {
-                        keyControl.setCurItem($(this).next(".history"));
-                    })
-                    .bind("keyUp", function() {
-                        keyControl.setCurItem($(this).prev(".history"));
-                    });
-
-                $("#history .history").first().off("keyUp")
-                    .bind("keyUp", function() {
-                        keyControl.setCurItem($("#carousel .swiper-wrapper"));
-                    })
-                $("#history .history.all").off("keyDown")
-                    .bind("keyDown", function() {
-                        keyControl.setCurItem($("#item2-1"));
-                    })
-
-                $("#search").add("#list")
-                    .bind("keyLeft", function() {
-                        keyControl.setCurItem($("#history .history").first());
-                    })
-                    .bind("keyRight", function() {
-                        keyControl.setCurItem($("#item1-1"));
-                    });
-                $("#search")
-                    .bind("keyUp", function() {
-                        keyControl.setCurItem($("#carousel .swiper-wrapper"));
-                    })
-                    .bind("keyDown", function() {
-                        keyControl.setCurItem($("#list"));
-                    })
-                $("#list")
-                    .bind("keyUp", function() {
-                        keyControl.setCurItem($("#search"));
-                    })
-                    .bind("keyDown", function() {
-                        keyControl.setCurItem($("#item2-1"));
-                    })
-
-                $("#item1-1")
-                    .bind("keyUp", function() {
-                        keyControl.setCurItem($("#carousel .swiper-wrapper"));
-                    })
-                    .bind("keyLeft", function() {
-                        keyControl.setCurItem($("#search"));
-                    })
-                    .bind("keyRight", function() {
-                        keyControl.setCurItem($(this).next(".item"));
-                    })
-                    .bind("keyDown", function() {
-                        keyControl.setCurItem($("#item2-1"));
-                    })
-            }
-        });
-    });
 
 
 function locationTo(url) {

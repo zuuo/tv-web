@@ -13,6 +13,9 @@
   clear: both;
   height: 0;
 }
+:root {
+  font-size: 1vw;
+}
 html,
 body {
   width: 100vw;
@@ -56,14 +59,17 @@ body {
   background-image: url(../images/icon/menu/menu_active.png);
 }
 #menuWrap .itemGroup .menu.focus {
-  transform: scale(1.02);
+  -webkit-transform: scale(1.02);
+          transform: scale(1.02);
   transition: 500ms;
   background-image: url(../images/icon/menu/menu_focus.png);
 }
 .item.horizontalShake {
+  -webkit-animation: shake-horizontal 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
   animation: shake-horizontal 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
 .item.verticalShake {
+  -webkit-animation: shake-vertical 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
   animation: shake-vertical 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
 .item img {
