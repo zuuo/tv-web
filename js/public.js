@@ -1,5 +1,38 @@
+var deviceInfo = {
+    userID: "13966651582yst001",
+    userToken: "9BbnVxJ5VWFnEp8YJY9caOl142967693",
+};
+
+function getBaseData() {
+    var baseData = {
+        MsgId: "1",
+        main_account: deviceInfo.userAccount,
+        sub_account: deviceInfo.account,
+        mac: deviceInfo.mac || "asd",
+        version_code: "1"
+    }
+
+    return baseData
+}
+
+if (!window.TVMain) {
+    TVMain = {
+        onshowTips: function(msg) {
+            alert(msg);
+        },
+        onToast: function(msg) {
+            console.log(msg);
+        },
+    }
+}
+
 // keyControl
-var carousel;
+
+/** 
+// ! curItem 当前光标
+// ! customJump attr 自定义跳转,屏蔽公共跳转事件
+// ! disableShake attr 禁用抖动
+**/
 var keyControl = {
     curItem: undefined,
     itemIndex: 0,
@@ -247,14 +280,57 @@ $(document).on("keyup", function(e) {
     }
 })
 
-
-
 function locationTo(url) {
     window.location.href = url;
 }
 
+var baseData = getBaseData();
 
 
+function publicGetData(params, successFun, errorFun) {
+    if (!params.ServiceName) {
+        TVMain.onshowTips("未知查询方法");
+        return
+    }
 
+    var successFun = successFun || function(res) {
+        console.log(res);
+    }
 
-keyControl.init()
+    var errorFunction = function(XMLHttpRequest, textStatus, errorThrown) {
+        if (XMLHttpRequest.readyState == 4) {
+            try {
+                TVMain.onToast(params.ServiceName + "查询失败");
+            } catch (error) {
+                alert(params.ServiceName + "查询失败");
+            }
+        }
+        if (errorFun) {
+            errorFun();
+        }
+    }
+
+    for (key in baseData) {
+        params[key] = baseData[key]
+    }
+
+    $.ajax({
+        type: "post",
+        url: "http://112.30.214.140:9004/epg/apk/forapk.json",
+        data: JSON.stringify(params),
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        success: function(res) {
+            successFun(res);
+        },
+
+        error: errorFunction,
+    });
+}
+
+function GetQueryString(name, url) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+}

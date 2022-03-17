@@ -1,3 +1,5 @@
+var carousel;
+
 function recommendRenderFun() {
     if ($("#carousel").length > 0) {
         if (carousel) {

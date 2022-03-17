@@ -1,4 +1,5 @@
 @import url(../lib/animation.css);
+@screenMargin: 40px;
 
 ::-webkit-scrollbar {
   width: 0;
@@ -37,12 +38,23 @@ body {
   background-size: 100% auto;
   background-color: #042B5A;
   width: 100vw;
-  // height: calc(100vw / 1920 * 1080);
-  // overflow: hidden;
+  height: calc(100rem / 1920 * 1080);
+  overflow: hidden;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .itemGroup {
   &:extend(.clearFix all);
+}
+
+svg.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }
 
 #menuWrap {

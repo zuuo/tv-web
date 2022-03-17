@@ -1,10 +1,11 @@
 @itemSpace: 20px;
+@screenMargin: 40px;
 
 #recommend {
     width: 100vw;
     height: calc(100% - 80px);
     box-sizing: border-box;
-    padding: 20px 40px;
+    padding: 20px @screenMargin;
     overflow: hidden;
 
     .row {
@@ -36,8 +37,8 @@
             .item {
                 @i: 6;
 
-                width: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i);
-                height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 165 * 185);
+                width: calc((100rem - @screenMargin * 2 - @itemSpace * (@i - 1)) / @i);
+                height: calc((100rem - @screenMargin * 2 - @itemSpace * (@i - 1)) / @i / 165 * 185);
             }
         }
 
@@ -45,27 +46,27 @@
 
             &.row-@{i} {
                 .item {
-                    width: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i);
+                    width: calc((100rem - @screenMargin * 2 - @itemSpace * (@i - 1)) / @i);
                 }
 
                 .item when(@i =2) {
-                    height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 280 * 150);
+                    height: calc((100rem - @screenMargin * 2 - @itemSpace * (@i - 1)) / @i / 280 * 150);
                 }
 
                 .item when(@i =3) {
-                    height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 380 * 180);
+                    height: calc((100rem - @screenMargin * 2 - @itemSpace * (@i - 1)) / @i / 380 * 180);
                 }
 
                 .item when(@i =4) {
-                    height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 380 * 180);
+                    height: calc((100rem - @screenMargin * 2 - @itemSpace * (@i - 1)) / @i / 380 * 180);
                 }
 
                 .item when(@i =5) {
-                    height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 280 * 150);
+                    height: calc((100rem - @screenMargin * 2 - @itemSpace * (@i - 1)) / @i / 280 * 150);
                 }
 
                 .item when(@i =6) {
-                    height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 175 * 240);
+                    height: calc((100rem - @screenMargin * 2 - @itemSpace * (@i - 1)) / @i / 175 * 240);
                 }
             }
 
@@ -80,9 +81,9 @@
 
 #historyRecord {
     @i: 6;
-    @itemWidth: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i);
-    width: calc(2 * (100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i + @itemSpace);
-    height: calc((100rem - 40px * 2 - @itemSpace * (@i - 1)) / @i / 165 * 185);
+    @itemWidth: calc((100rem - @screenMargin * 2 - @itemSpace * (@i - 1)) / @i);
+    width: calc(2 * (100rem - @screenMargin * 2 - @itemSpace * (@i - 1)) / @i + @itemSpace);
+    height: calc((100rem - @screenMargin * 2 - @itemSpace * (@i - 1)) / @i / 165 * 185);
     float: left;
     margin-right: @itemSpace;
 

@@ -1,3 +1,5 @@
+keyControl.init()
+
 // 绑定事件
 $("#menu .item")
     .bind("cursorFocus", function(e) {

@@ -3,20 +3,40 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta name="viewport" content="initial-scale=1.0">
     <title>列表</title>
     <link rel="stylesheet" href="../css/public.css">
+    <link rel="stylesheet" href="../css/list.css">
+    <link rel="stylesheet" href="../lib/swiper2.7.6.css">
+    <script src="../lib/swiper2.7.6.min.js"></script>
     <script src="../lib/fix.js"></script>
     <script src="../lib/jquery.min.js"></script>
 </head>
 
 <body>
-    <div id="wrapper">
-
+    <div id="wrapper" class="clearFix">
+        <div id="left">
+            <div class="list">
+                <div class="item toSearch">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-sousuo1"></use>
+                    </svg> 搜索
+                </div>
+            </div>
+        </div>
+        <div id="right">
+            <div id="secondClass" class="swiper-container itemGroup">
+                <div class="swiper-wrapper"></div>
+            </div>
+            <div id="vodList"></div>
+        </div>
     </div>
 </body>
-<script src="./js/public.js"></script>
-<script src="./js/list.js"></script>
+<script src="../font/iconfont.js"></script>
+<script src="../js/public.js"></script>
+<script src="../js/list.js"></script>
 
 </html>

@@ -33,6 +33,19 @@ body {
   background-size: 100% auto;
   background-color: #042B5A;
   width: 100vw;
+  height: calc(100rem / 1920 * 1080);
+  overflow: hidden;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+svg.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }
 #menuWrap {
   width: 100%;

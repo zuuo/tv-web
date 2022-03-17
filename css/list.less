@@ -1,0 +1,124 @@
+@screenMargin: 40px;
+@leftWidth: 20rem;
+
+#wrapper {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 20px @screenMargin;
+    background-image: url(../images/icon/list/listLeft.png);
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-position: left center;
+
+    #left {
+        width: @leftWidth;
+        height: 100%;
+        float: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        .list {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            font-size: 24px;
+
+            .item {
+                width: 100px;
+                height: 50px;
+                text-align: center;
+                line-height: 50px;
+                color: #ffffff;
+                box-sizing: border-box;
+
+                &.focus {
+                    box-shadow: none;
+                    text-shadow: #039afc 0px 0px 10px;
+                    background-image: url(../images/icon/list/list_on.png);
+                    background-repeat: no-repeat;
+                    background-size: auto;
+                    background-position: center bottom;
+                }
+
+                &.on {
+                    color: #42b5ff;
+                }
+
+                &.toSearch {
+                    color: #aeaeae;
+
+                    &.focus {
+                        color: #fff;
+                    }
+                }
+            }
+
+            &:nth-of-type(1),
+            &:nth-last-of-type(1) {
+                .item {
+                    transform: translateX(100%);
+                }
+            }
+
+            &:nth-of-type(2),
+            &:nth-last-of-type(2) {
+                .item {
+                    transform: translateX(50%);
+                }
+            }
+
+            &:nth-of-type(3),
+            &:nth-last-of-type(3) {
+                .item {
+                    transform: translateX(20%);
+                }
+            }
+        }
+    }
+
+    #right {
+        width: calc(100% - @leftWidth);
+        height: 100%;
+        float: right;
+
+
+        #secondClass {
+            width: calc(100% - 2rem);
+            height: 3rem;
+            margin: 0 auto;
+            color: #ffffff;
+            font-size: 18px;
+
+            .swiper-wrapper {
+                .item {
+                    height: 3rem;
+                    text-align: center;
+                    line-height: 3rem;
+                    box-sizing: border-box;
+                    padding: 0 20px;
+                    border-radius: 1.5rem;
+
+                    &.on {
+                        background: linear-gradient(90deg, rgba(78, 156, 252, 0.5), rgba(3, 108, 252, 0.5));
+                    }
+
+                    &.focus {
+                        transform: unset;
+                        box-shadow: none;
+                        background: linear-gradient(90deg, #4E9CFC, #036CFC);
+                    }
+
+                }
+            }
+        }
+
+        #vodList {
+
+        }
+    }
+}
