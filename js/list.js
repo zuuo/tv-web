@@ -77,6 +77,8 @@ function setSecondClass() {
     $(firstClassData.second_class).each(function(index, cla) {
         var slideContent = "<span>" + cla.secondClass_name + "</span>";
         var newSlide = secondClassSwiper.createSlide(slideContent, 'swiper-slide item', 'div');
+        console.log(cla);
+        newSlide.data("secondclassindex", index)
         newSlide.append();
     })
 
@@ -84,7 +86,8 @@ function setSecondClass() {
         .attr("disableShake", true)
         .bind("cursorFocus", function() {
             $("#secondClass .item").removeClass("on")
-            $(this).addClass("on")
+            $(this).addClass("on");
+            loadItems(firstClassData.second_class[$(this).data().secondclassindex])
         })
         .bind("keyLeft", function() {
             secondClassSwiper.swipePrev()
@@ -98,4 +101,21 @@ function setSecondClass() {
         .bind("keyLeft", function() {
             keyControl.setCurItem($("#left .item.on"))
         })
+}
+
+function loadItems(classData) {
+    console.log(classData);
+    var data = {};
+    if (classData.level == 1) {
+        data = {
+            ServiceName: "GetVodFromFLClass",
+            BInclueSLClass: 1, // 是否包括二级分类下的vod,0-不包括,1-包括
+            BAllowPkgRepeat: 1, // 是否允许包组id重复,0-允许,1-不允许
+            Class_id: classData.class_id,
+            QueryFrom: vod_num,
+            QueryTo: vod_num + limit
+        }
+    } else {
+
+    }
 }
