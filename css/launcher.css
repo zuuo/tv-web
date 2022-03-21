@@ -13,8 +13,9 @@
 #top #notification {
   float: left;
   height: 40px;
-  width: 500px;
+  width: calc(100% - 800px);
   margin-left: 30px;
+  margin-right: 180px;
   background-color: #0C2030;
   box-sizing: border-box;
   border: 1px solid #0c2030;
@@ -34,37 +35,40 @@
   white-space: nowrap;
   margin-left: 50px;
 }
-#top #topRight {
-  float: right;
-  font-size: 18px;
+#top #notification.focus {
+  box-shadow: inset 0 0 5px 2px #ff6c00;
 }
-#top #topRight .icon {
+#top .topRight {
+  float: left;
+  font-size: 18px;
+  border-radius: 20px;
+}
+#top .topRight .icon {
   margin-left: -10px;
   margin-right: 10px;
   font-size: 22px;
 }
-#top #topRight .search {
+#top .topRight.item.focus {
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+#top .search {
   width: 100px;
   height: 40px;
   box-sizing: border-box;
-  border: 1px solid #17344B;
-  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  float: left;
 }
-#top #topRight .mine,
-#top #topRight .order {
+#top .mine,
+#top .order {
   width: 100px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  float: left;
 }
-#top #topRight .time {
-  float: left;
+#top .time {
   width: 185px;
   height: 40px;
   text-align: right;

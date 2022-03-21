@@ -42,9 +42,11 @@ var keyControl = {
     groups: $(".itemGroup"),
     groupIndex: 0,
 
-    init: function() {
+    init: function(firstItem) {
         this.setGroups();
-        if (!this.curItem) {
+        if (firstItem && firstItem.length) {
+            this.setCurItem(firstItem)
+        } else if (!this.curItem) {
             this.setCurItem(this.groups.eq(this.groupIndex).find(".item").eq(this.itemIndex));
         }
     },

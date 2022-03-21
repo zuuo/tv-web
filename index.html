@@ -25,27 +25,27 @@
 <body>
     <div id="top" class="itemGroup">
         <img src="images/icon/logo.png" id="logo">
-        <div id="notification">
+        <div id="notification" class="item" disableShake="true">
             <div id="notice"></div>
         </div>
-        <div id="topRight">
-            <div class="search">
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-sousuo1"></use>
-                </svg> 搜索
-            </div>
-            <div class="mine">
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-wode"></use>
-                </svg> 我的
-            </div>
-            <div class="order">
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-gouwuche"></use>
-                </svg> 订购
-            </div>
-            <div class="time"></div>
+
+
+        <div class="search item topRight" disableShake="true">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-sousuo1"></use>
+            </svg> 搜索
         </div>
+        <div class="order item topRight" disableShake="true">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-gouwuche"></use>
+            </svg> 订购
+        </div>
+        <div class="mine item topRight" disableShake="true">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-wode"></use>
+            </svg> 我的
+        </div>
+        <div class="time topRight"></div>
     </div>
     <script src="./js/commonTop.js"></script>
     <div id="menuWrap">

@@ -1,4 +1,4 @@
-keyControl.init()
+keyControl.init($("#menu .item").eq(0))
 
 // 绑定事件
 $("#menu .item")
