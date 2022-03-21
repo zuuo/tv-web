@@ -8,17 +8,46 @@
     <title>TV</title>
 
     <link rel="stylesheet" href="./css/public.css">
+    <link rel="stylesheet" href="./css/launcher.css">
     <link rel="stylesheet" href="./css/recommend.css">
 
     <script src="./lib/fix.js"></script>
-    <script src="../font/iconfont.js"></script>
+    <script src="./font/iconfont.js"></script>
     <script src="./lib/jquery.min.js"></script>
+    <script src="./lib/jqScrollIntoView.min.js"></script>
+
+    <link rel="stylesheet" href="./lib/swiper2.7.6.css">
+    <link rel="stylesheet" href="./lib/swiper.3dflow.css">
+    <script src="./lib/swiper2.7.6.min.js"></script>
+    <script src="./lib/swiper.3dflow.js"></script>
 </head>
 
 <body>
-    <div id="top">
-        <div id="logo"></div>
+    <div id="top" class="itemGroup">
+        <img src="images/icon/logo.png" id="logo">
+        <div id="notification">
+            <div id="notice"></div>
+        </div>
+        <div id="topRight">
+            <div class="search">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-sousuo1"></use>
+                </svg> 搜索
+            </div>
+            <div class="mine">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-wode"></use>
+                </svg> 我的
+            </div>
+            <div class="order">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-gouwuche"></use>
+                </svg> 订购
+            </div>
+            <div class="time"></div>
+        </div>
     </div>
+    <script src="./js/commonTop.js"></script>
     <div id="menuWrap">
         <div id="menu" class="itemGroup">
             <div class="menu item" data-recommend="1">首页</div>

@@ -193,6 +193,14 @@ var keyControl = {
         if (scrollAnchor.length == 0) {
             scrollAnchor = this.curItem.parents(".itemGroup")
         }
+        // console.log(scrollAnchor);
+        // scrollAnchor.scrollintoview({
+        //     duration: 2500,
+        //     direction: "vertical",
+        //     complete: function() {
+        //         console.log("scroll");
+        //     }
+        // });
         if (scrollAnchor.get(0).scrollIntoView) {
             scrollAnchor.get(0).scrollIntoView({
                 behavior: "smooth",
