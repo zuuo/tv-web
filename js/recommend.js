@@ -36,6 +36,7 @@ function recommendRenderFun() {
             .bind("keyDown", function() {
                 keyControl.setCurItem($("#history .history").eq(0));
             })
+            .off("keyEnter")
             .bind("keyEnter", function() {
                 locationTo("/html/detail.html?id=1")
             })
@@ -117,4 +118,11 @@ function recommendRenderFun() {
             })
     }
 
+    $(".row .item").bind("keyEnter", function() {
+        var vodId = $(this).data().vodId;
+        console.log(vodId);
+        if (vodId) {
+            locationTo("/html/detail.html?id=" + vodId)
+        }
+    })
 }

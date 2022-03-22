@@ -1,0 +1,23 @@
+#wrapper {
+  width: 100%;
+  height: 100%;
+}
+#wrapper #vod {
+  width: 100%;
+  height: 350px;
+  box-sizing: border-box;
+  padding: 15px 40px;
+  background-color: rgba(6, 21, 33, 0.55);
+}
+#wrapper #vod #video {
+  width: 470px;
+  height: 320px;
+  background-color: rgba(15, 15, 15, 0.55);
+  float: left;
+}
+#wrapper #vod #detail {
+  width: calc(100% - 490px);
+  height: 100%;
+  margin-left: 20px;
+  float: left;
+}

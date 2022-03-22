@@ -23,7 +23,7 @@ body {
   padding: 0;
   margin: 0;
   overflow: hidden;
-  background-color: #042B5A;
+  background-color: #04040c;
   color: #ffffff;
 }
 body {
@@ -31,8 +31,15 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-size: 100% 100%;
-  background-color: #042B5A;
   width: 100vw;
+  height: calc(100vw / 1280 * 720);
+  height: 66.667vw;
+  overflow: hidden;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  font-size: 20px;
 }
 svg.icon {
   width: 1em;
@@ -40,6 +47,9 @@ svg.icon {
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;
+}
+.item {
+  font-size: 20px;
 }
 .item.horizontalShake {
   -webkit-animation: shake-horizontal 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
@@ -53,4 +63,16 @@ svg.icon {
   -webkit-user-drag: none;
   width: 100%;
   height: 100%;
+}
+.font-4 {
+  font-size: 20px;
+}
+.font-5 {
+  font-size: 30px;
+}
+.font-6 {
+  font-size: 32px;
+}
+.font-7 {
+  font-size: 36px;
 }

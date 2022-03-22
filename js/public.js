@@ -230,36 +230,43 @@ var keyControl = {
         $("#carousel .swiper-slide").each(function(index, item) {
             var imgUrl = "/images/380x180/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
+            $(item).data("pkgId", index + 1)
         })
 
         $(".row-2 .item").each(function(index, item) {
             var imgUrl = "/images/280x150/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
+            $(item).data("pkgId", index + 1)
         })
 
         $(".row-3 .item").each(function(index, item) {
             var imgUrl = "/images/380x180/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
+            $(item).data("pkgId", index + 1)
         })
 
         $(".row-4 .item").each(function(index, item) {
             var imgUrl = "/images/380x180/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
+            $(item).data("pkgId", index + 1)
         })
 
         $(".row-5 .item").each(function(index, item) {
             var imgUrl = "/images/280x150/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
+            $(item).data("pkgId", index + 1)
         })
 
         $(".row-6 .item").each(function(index, item) {
             var imgUrl = "/images/175x240/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
+            $(item).data("pkgId", index + 1)
         })
 
         $(".row-first .item").each(function(index, item) {
             var imgUrl = "/images/175x240/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
+            $(item).data("pkgId", index + 1)
         })
     }
 }
