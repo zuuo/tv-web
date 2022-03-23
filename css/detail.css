@@ -21,3 +21,181 @@
   margin-left: 20px;
   float: left;
 }
+#wrapper #vod #detail #detail1 {
+  height: 60px;
+  line-height: 60px;
+  vertical-align: baseline;
+  display: flex;
+  align-items: baseline;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+#wrapper #vod #detail #detail1 #pkgName {
+  font-size: 48px;
+  color: #fff;
+}
+#wrapper #vod #detail #detail1 #score {
+  font-size: 40px;
+  color: #FF7E00;
+  padding: 0 10px;
+}
+#wrapper #vod #detail #detail1 #chargeFlag {
+  font-size: 26px;
+  padding: 0 10px;
+  color: #fff;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  border-radius: 30px;
+  box-sizing: border-box;
+}
+#wrapper #vod #detail #detail1 #chargeFlag .icon {
+  margin-right: 5px;
+  display: none;
+}
+#wrapper #vod #detail #detail1 #chargeFlag span {
+  display: none;
+}
+#wrapper #vod #detail #detail1 #chargeFlag.free span:nth-of-type(3) {
+  display: inline-block;
+}
+#wrapper #vod #detail #detail1 #chargeFlag.unpaid .icon,
+#wrapper #vod #detail #detail1 #chargeFlag.unpaid span:nth-of-type(1) {
+  display: inline-block;
+}
+#wrapper #vod #detail #detail1 #chargeFlag.paid .icon,
+#wrapper #vod #detail #detail1 #chargeFlag.paid span:nth-of-type(1) {
+  display: inline-block;
+}
+#wrapper #vod #detail #detail1 #chargeFlag.focus {
+  border: 1px solid #fff;
+  box-shadow: inset 0px 0px 4px 2px #ffffff;
+}
+#wrapper #vod #detail #detail1 #collect {
+  font-size: 26px;
+  margin-left: auto;
+  padding: 0 10px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  border-radius: 30px;
+  box-sizing: border-box;
+}
+#wrapper #vod #detail #detail1 #collect .icon {
+  margin-right: 5px;
+}
+#wrapper #vod #detail #detail1 #collect span:nth-of-type(2) {
+  display: none;
+}
+#wrapper #vod #detail #detail1 #collect.collected {
+  color: #FDC93B;
+}
+#wrapper #vod #detail #detail1 #collect.collected span:nth-of-type(1) {
+  display: none;
+}
+#wrapper #vod #detail #detail1 #collect.collected span:nth-of-type(2) {
+  display: inline;
+}
+#wrapper #vod #detail #detail1 #collect.collected.focus {
+  border: 1px solid #FDC93B;
+  box-shadow: inset 0px 0px 4px 2px #FDC93B;
+}
+#wrapper #vod #detail #detail1 #collect.focus {
+  border: 1px solid #fff;
+  box-shadow: inset 0px 0px 4px 2px #fff;
+}
+#wrapper #vod #detail #detail2 {
+  flex-grow: 0;
+  flex-shrink: 0;
+  color: #E04C1C;
+  height: 30px;
+  margin: 10px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#wrapper #vod #detail #detail2 #assetCount,
+#wrapper #vod #detail #detail2 #lastAsset {
+  color: #fff;
+}
+#wrapper #vod #detail #detail2 #space {
+  display: inline-block;
+  height: 20px;
+  margin: 0 10px;
+  border-right: 1px solid #fff;
+  vertical-align: middle;
+}
+#wrapper #vod #detail #detail2 #leader,
+#wrapper #vod #detail #detail2 #director {
+  color: #E04C1C;
+}
+#wrapper #vod #detail #introduce {
+  height: calc(100% - 60px - 50px - 100px);
+}
+#wrapper #vod #detail #vod_episode {
+  width: 100%;
+  height: 100px;
+  padding-top: 15px;
+  box-sizing: border-box;
+}
+#wrapper #vod #detail #vod_episode #episode {
+  height: 40px;
+}
+#wrapper #vod #detail #vod_episode #episode.page-5 .group .item {
+  width: calc((100% - 14px * 4) / 5);
+}
+#wrapper #vod #detail #vod_episode #episode .group {
+  width: 100%;
+  height: 40px;
+  display: none;
+}
+#wrapper #vod #detail #vod_episode #episode .group .item {
+  width: calc((100% - 14px * 9) / 10);
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  transition: 200ms;
+  margin-right: 14px;
+  background-color: #071D2E;
+  border: 1px solid #183D55;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+#wrapper #vod #detail #vod_episode #episode .group .item:last-child {
+  margin-right: 0;
+}
+#wrapper #vod #detail #vod_episode #episode .group .item.on {
+  color: #E04C1C;
+}
+#wrapper #vod #detail #vod_episode #episode .group .item.focus {
+  border-color: #E04C1C;
+  color: #E04C1C;
+}
+#wrapper #vod #detail #vod_episode #episodeGroup {
+  width: calc(100% + 14px);
+  margin-top: 10px;
+  height: 35px;
+}
+#wrapper #vod #detail #vod_episode #episodeGroup .item span {
+  width: calc(100% - 14px);
+  margin-right: 14px;
+  height: 35px;
+  transition: 200ms;
+  float: left;
+  text-align: center;
+  line-height: 35px;
+  box-sizing: border-box;
+  background-color: #071D2E;
+  border: 1px solid #183D55;
+  border-radius: 5px;
+}
+#wrapper #vod #detail #vod_episode #episodeGroup .item.on span {
+  color: #E04C1C;
+}
+#wrapper #vod #detail #vod_episode #episodeGroup .item.focus span {
+  border-color: #E04C1C;
+  color: #E04C1C;
+}

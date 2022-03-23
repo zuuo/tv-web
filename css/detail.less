@@ -21,6 +21,235 @@
             height: 100%;
             margin-left: 20px;
             float: left;
+            // display: flex;
+            // flex-direction: column;
+
+            #detail1 {
+                height: 60px;
+                line-height: 60px;
+                vertical-align: baseline;
+                display: flex;
+                align-items: baseline;
+                flex-grow: 0;
+                flex-shrink: 0;
+
+                #pkgName {
+                    font-size: 48px;
+                    color: #fff;
+                }
+
+                #score {
+                    font-size: 40px;
+                    color: #FF7E00;
+                    padding: 0 10px;
+                }
+
+                #chargeFlag {
+                    font-size: 26px;
+                    padding: 0 10px;
+                    color: #fff;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: start;
+                    border-radius: 30px;
+                    box-sizing: border-box;
+
+                    .icon {
+                        margin-right: 5px;
+                        display: none;
+                    }
+
+                    span {
+                        display: none;
+                    }
+
+                    &.free {
+                        span:nth-of-type(3) {
+                            display: inline-block;
+                        }
+                    }
+
+                    &.unpaid {
+
+                        .icon,
+                        span:nth-of-type(1) {
+                            display: inline-block;
+                        }
+                    }
+
+                    &.paid {
+
+                        .icon,
+                        span:nth-of-type(1) {
+                            display: inline-block;
+                        }
+                    }
+
+                    &.focus {
+                        border: 1px solid #fff;
+                        box-shadow: inset 0px 0px 4px 2px #ffffff;
+                    }
+                }
+
+                #collect {
+                    font-size: 26px;
+                    margin-left: auto;
+                    padding: 0 10px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: start;
+                    border-radius: 30px;
+                    box-sizing: border-box;
+
+                    .icon {
+                        margin-right: 5px;
+                    }
+
+                    span:nth-of-type(2) {
+                        display: none;
+                    }
+
+                    &.collected {
+                        color: #FDC93B;
+
+                        span:nth-of-type(1) {
+                            display: none;
+                        }
+
+                        span:nth-of-type(2) {
+                            display: inline;
+                        }
+
+                        &.focus {
+                            border: 1px solid #FDC93B;
+                            box-shadow: inset 0px 0px 4px 2px #FDC93B;
+                        }
+                    }
+
+                    &.focus {
+                        border: 1px solid #fff;
+                        box-shadow: inset 0px 0px 4px 2px #fff;
+                    }
+                }
+            }
+
+            #detail2 {
+                flex-grow: 0;
+                flex-shrink: 0;
+                color: #E04C1C;
+                height: 30px;
+                margin: 10px 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                #assetCount,
+                #lastAsset {
+                    color: #fff;
+                }
+
+                #space {
+                    display: inline-block;
+                    height: 20px;
+                    margin: 0 10px;
+                    border-right: 1px solid #fff;
+                    vertical-align: middle;
+                }
+
+                #leader,
+                #director {
+                    color: #E04C1C;
+                }
+            }
+
+            #introduce {
+                height: calc(100% - 60px - 50px - 100px);
+            }
+
+            #vod_episode {
+                width: 100%;
+                height: 100px;
+                padding-top: 15px;
+                box-sizing: border-box;
+
+                #episode {
+                    height: 40px;
+
+                    &.page-5 {
+                        .group {
+                            .item {
+                                width: calc((100% - 14px * 4) / 5);
+                            }
+                        }
+                    }
+
+                    .group {
+                        width: 100%;
+                        height: 40px;
+                        display: none;
+
+                        .item {
+                            width: calc((100% - 14px * 9) / 10);
+                            float: left;
+                            height: 40px;
+                            line-height: 40px;
+                            text-align: center;
+                            transition: 200ms;
+                            margin-right: 14px;
+                            background-color: #071D2E;
+                            border: 1px solid #183D55;
+                            border-radius: 5px;
+                            box-sizing: border-box;
+
+                            &:last-child {
+                                margin-right: 0;
+                            }
+
+                            &.on {
+                                color: #E04C1C;
+                            }
+
+                            &.focus {
+                                border-color: #E04C1C;
+                                color: #E04C1C;
+                            }
+                        }
+                    }
+                }
+
+                #episodeGroup {
+                    width: calc(100% + 14px);
+                    margin-top: 10px;
+                    height: 35px;
+
+                    .item {
+                        span {
+                            width: calc(100% - 14px);
+                            margin-right: 14px;
+                            height: 35px;
+                            transition: 200ms;
+                            float: left;
+                            text-align: center;
+                            line-height: 35px;
+                            box-sizing: border-box;
+                            background-color: #071D2E;
+                            border: 1px solid #183D55;
+                            border-radius: 5px;
+                        }
+
+                        &.on span{
+                            color: #E04C1C;
+                        }
+
+                        &.focus span{
+                            border-color: #E04C1C;
+                            color: #E04C1C;
+                        }
+                    }
+                }
+            }
         }
     }
 }

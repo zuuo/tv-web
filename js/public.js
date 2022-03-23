@@ -3,6 +3,11 @@ var deviceInfo = {
     userToken: "9BbnVxJ5VWFnEp8YJY9caOl142967693",
 };
 
+var baseData = getBaseData();
+
+var userInfo;
+login()
+
 function getBaseData() {
     var baseData = {
         MsgId: "1",
@@ -301,9 +306,6 @@ function locationTo(url) {
     window.location.href = url;
 }
 
-var baseData = getBaseData();
-
-
 function publicGetData(params, successFun, errorFun) {
     if (!params.ServiceName) {
         TVMain.onshowTips("未知查询方法");
@@ -343,6 +345,21 @@ function publicGetData(params, successFun, errorFun) {
 
         error: errorFunction,
     });
+}
+
+function login() {
+    // 首次进入时登录
+    userInfo = window.sessionStorage.getItem("userInfo")
+    if (userInfo) {
+        userInfo = JSON.parse(userInfo)
+        return
+    } else {
+        // 调登录接口
+        userInfo = {
+            paid: true,
+        }
+        window.sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+    }
 }
 
 function GetQueryString(name, url) {
