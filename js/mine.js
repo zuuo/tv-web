@@ -202,7 +202,6 @@ $("#history")
 
 
 keyControl.keyBack = function() {
-    console.log("keyBack");
     if (!$(".tab.on").hasClass("focus")) {
         keyControl.setCurItem($(".tab.on"))
     } else {
