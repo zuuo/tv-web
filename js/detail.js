@@ -1,5 +1,5 @@
 var pkgId = GetQueryString("pkgId");
-pkgId = 22366;
+pkgId = 22700;
 var pkgInfo = {};
 var episodeData = [];
 var episodePageSize = 10;
@@ -10,15 +10,47 @@ var episodeGroupSwiper = new Swiper('#episodeGroup', {
 });
 
 $("#chargeFlag")
+    .attr("disableDown", true)
     .bind("keyEnter", function() {
         if ($(this).hasClass("unpaid")) {
             $("#chargeFlag").removeClass("unpaid").addClass("paid");
         }
     })
+    .bind("keyDown", function() {
+        var target = $("#episode .item.on")
+        keyControl.setCurItem(target)
+    })
 
 $("#collect")
+    .attr("disableDown", true)
     .bind("keyEnter", function() {
-        $("#collect").toggleClass("collected");
+        if ($("#collect").hasClass("collected")) {
+            publicGetData({
+                ServiceName: "DelBookmark",
+                pkg_id: pkgId,
+            }, function(res) {
+                if (res.retCode == 0) {
+                    $("#collect").removeClass("collected");
+                } else {
+                    TVMain.onShowTips(res.retDesc);
+                }
+            });
+        } else {
+            publicGetData({
+                ServiceName: "AddBookmark",
+                pkg_id: pkgId,
+            }, function(res) {
+                if (res.retCode == 0) {
+                    $("#collect").addClass("collected");
+                } else {
+                    TVMain.onShowTips(res.retDesc);
+                }
+            });
+        }
+    })
+    .bind("keyDown", function() {
+        var target = $("#episode .item.on")
+        keyControl.setCurItem(target)
     })
 
 getVodDetail();
@@ -134,12 +166,11 @@ function setEpisode() {
     $("#episodeGroup .item")
         .attr("customJump", true)
         .bind("cursorFocus", function() {
-            $("#episodeGroup .item").removeClass("on")
+            $("#episodeGroup .item.on").removeClass("on");
             $(this).addClass("on")
             var groupIndex = $("#episodeGroup .item").index($(this))
             $("#episode .group").hide().eq(groupIndex).show()
             episodeGroupSwiper.swipeTo(groupIndex)
-            keyControl.setCurItem($("#episodeGroup .item").eq(episodeGroupSwiper.activeIndex))
         })
         .bind("keyUp", function() {
             var groupIndex = $("#episodeGroup .item").index($(this))
@@ -149,6 +180,25 @@ function setEpisode() {
                 target = group.find(".item").eq(0)
             }
             keyControl.setCurItem(target)
+        })
+        .bind("keyRight", function() {
+            var target = keyControl.curItem.next();
+            if (target.length > 0) {
+                keyControl.setCurItem(target)
+            } else(
+                keyControl.shakeItem()
+            )
+        })
+        .bind("keyLeft", function() {
+            var target = keyControl.curItem.prev();
+            if (target.length > 0) {
+                keyControl.setCurItem(target)
+            } else(
+                keyControl.shakeItem()
+            )
+        })
+        .bind("keyDown", function() {
+            keyControl.setCurItem($("#relative .item"))
         })
         .eq(0).trigger("cursorFocus")
 
@@ -164,10 +214,64 @@ function setEpisode() {
         .bind("keyUp", function() {
             keyControl.setCurItem($("#collect"))
         })
-        .bind("keyLeft", function() {
-
+        .bind("keyRight", function() {
+            var target = keyControl.curItem.next();
+            if (target.length > 0) {
+                keyControl.setCurItem(target)
+            } else {
+                var nextGroup = $("#episodeGroup .item.on").next()
+                if (nextGroup.length > 0) {
+                    nextGroup.trigger("cursorFocus");
+                    keyControl.setCurItem($("#episode .group:visible .item").first())
+                } else(
+                    keyControl.shakeItem()
+                )
+            }
         })
-        .bind("keyRight", function() {})
+        .bind("keyLeft", function() {
+            var target = keyControl.curItem.prev();
+            if (target.length > 0) {
+                keyControl.setCurItem(target)
+            } else {
+                var nextGroup = $("#episodeGroup .item.on").prev()
+                if (nextGroup.length > 0) {
+                    nextGroup.trigger("cursorFocus");
+                    keyControl.setCurItem($("#episode .group:visible .item").last())
+                } else(
+                    keyControl.shakeItem()
+                )
+            }
+        })
 
-    keyControl.init($("#chargeFlag"))
+    setRelativePackages()
+}
+
+function setRelativePackages() {
+    var relativeList = pkgInfo.RelativePackages
+    console.log(relativeList);
+    if (relativeList.length == 0) {
+        $("#relative").hide()
+    } else {
+        $(relativeList).each(function(index, item) {
+            if (index >= 5) {
+                return false
+            }
+            var vod = $('<div class="item"><img src=""><span class="name"></span></div>');
+            vod.find("img").attr("src", item.pkg_logo);
+            vod.find(".name").text(item.pkg_name);
+            vod.data({
+                url: "detail.html?pkg_id=" + item.pkg_id,
+            })
+
+            vod.appendTo("#relative .itemGroup");
+        })
+    }
+
+    $("#relative .item")
+        .attr("disableUp", true)
+        .bind("keyUp", function() {
+            keyControl.setCurItem($("#episodeGroup .item.on"))
+        })
+
+    keyControl.init($("#episode .item").first())
 }

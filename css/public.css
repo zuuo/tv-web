@@ -76,3 +76,10 @@ svg.icon {
 .font-7 {
   font-size: 36px;
 }
+ul {
+  padding: 0;
+  margin: 0;
+}
+li {
+  list-style: none;
+}

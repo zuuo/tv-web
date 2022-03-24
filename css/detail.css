@@ -29,13 +29,17 @@
   align-items: baseline;
   flex-grow: 0;
   flex-shrink: 0;
+  white-space: nowrap;
 }
 #wrapper #vod #detail #detail1 #pkgName {
-  font-size: 48px;
+  font-size: 40px;
   color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 #wrapper #vod #detail #detail1 #score {
-  font-size: 40px;
+  font-size: 36px;
   color: #FF7E00;
   padding: 0 10px;
 }
@@ -198,4 +202,63 @@
 #wrapper #vod #detail #vod_episode #episodeGroup .item.focus span {
   border-color: #E04C1C;
   color: #E04C1C;
+}
+#wrapper #relative {
+  width: 100%;
+  height: calc(100% - 350px);
+  box-sizing: border-box;
+  padding: 15px 40px;
+}
+#wrapper #relative .title {
+  height: 40px;
+  line-height: 40px;
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+#wrapper #relative .itemGroup {
+  width: 100%;
+  height: calc(100% - 60px);
+}
+#wrapper #relative .itemGroup .item {
+  width: calc((100% - 40px * 4) / 5);
+  height: 0;
+  padding-bottom: calc((100% - 40px * 4) / 5 / 326 * 482);
+  position: relative;
+  transition: 200ms;
+  float: left;
+}
+#wrapper #relative .itemGroup .item + .item {
+  margin-left: 40px;
+}
+#wrapper #relative .itemGroup .item.focus {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  box-shadow: 0 0 5px 2px #fff;
+  border-radius: 3px;
+  transition: 500ms;
+}
+#wrapper #relative .itemGroup .item img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+#wrapper #relative .itemGroup .item .name {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+  color: #ffffff;
+  text-align: center;
+  font-size: 1.25rem;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

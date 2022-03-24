@@ -1,6 +1,7 @@
 var deviceInfo = {
     userID: "13966651582yst001",
     userToken: "9BbnVxJ5VWFnEp8YJY9caOl142967693",
+    mac: "2C:18:75:D3:0C:8E",
 };
 
 var baseData = getBaseData();
@@ -13,7 +14,7 @@ function getBaseData() {
         MsgId: "1",
         main_account: deviceInfo.userAccount,
         sub_account: deviceInfo.account,
-        mac: deviceInfo.mac || "asd",
+        mac: deviceInfo.mac,
         version_code: "1"
     }
 
@@ -61,10 +62,14 @@ var keyControl = {
             this.curItem.trigger("keyLeft")
             return
         }
-        this.curItem.trigger("keyLeft")
+        if (this.curItem.attr("disableLeft")) {
+            this.curItem.trigger("keyLeft");
+            return
+        }
+        this.curItem.trigger("keyLeft");
         var targetItem = this.curItem.prevAll(".item").eq(0);
         if (!targetItem.length) {
-            this.shakeItem("horizontal");
+            this.beforeShakeItem("horizontal");
             return
         }
         this.setCurItem(targetItem)
@@ -74,10 +79,14 @@ var keyControl = {
             this.curItem.trigger("keyRight")
             return
         }
-        this.curItem.trigger("keyRight")
+        if (this.curItem.attr("disableRight")) {
+            this.curItem.trigger("keyRight");
+            return
+        }
+        this.curItem.trigger("keyRight");
         var targetItem = this.curItem.nextAll(".item").eq(0);
         if (!targetItem.length) {
-            this.shakeItem("horizontal");
+            this.beforeShakeItem("horizontal");
             return
         }
         this.setCurItem(targetItem)
@@ -87,12 +96,16 @@ var keyControl = {
             this.curItem.trigger("keyUp")
             return
         }
-        this.curItem.trigger("keyUp")
+        if (this.curItem.attr("disableUp")) {
+            this.curItem.trigger("keyUp");
+            return
+        }
+        this.curItem.trigger("keyUp");
         var originSize = this.curItemGroup.find(".item").length;
         this.groupIndex = this.groupIndex - 1;
         if (this.groupIndex < 0) {
             this.groupIndex = 0;
-            this.shakeItem("vertical");
+            this.beforeShakeItem("vertical");
             return
         }
         var targetGroup = this.groups.eq(this.groupIndex);
@@ -111,12 +124,16 @@ var keyControl = {
             this.curItem.trigger("keyDown")
             return
         }
-        this.curItem.trigger("keyDown")
+        if (this.curItem.attr("disableDown")) {
+            this.curItem.trigger("keyDown");
+            return
+        }
+        this.curItem.trigger("keyDown");
         var originSize = this.curItemGroup.find(".item").length;
         this.groupIndex = this.groupIndex + 1;
         if (this.groupIndex >= this.groups.length) {
             this.groupIndex = this.groups.length - 1;
-            this.shakeItem("vertical");
+            this.beforeShakeItem("vertical");
             return
         }
 
@@ -138,7 +155,6 @@ var keyControl = {
     },
     keyBack: function() {
         var target = $(".menu.active");
-        console.log(target.length);
         if (target.length) {
             this.setCurItem(target)
         } else {
@@ -221,16 +237,22 @@ var keyControl = {
         }
     },
 
-    shakeItem: function(direction) {
-        var direction = direction || "horizontal";
+    beforeShakeItem: function(direction) {
         if (this.curItem.hasClass("menu") || this.curItem.attr("disableShake")) {
             return
+        } else {
+            this.shakeItem(direction)
         }
+    },
+    shakeItem: function(direction) {
+        var direction = direction || "horizontal";
+
         this.curItem.removeClass("horizontalShake verticalShake");
         setTimeout(function() {
             keyControl.curItem.addClass(direction + "Shake")
         });
     },
+
     renderRandomImg: function() {
         $("#carousel .swiper-slide").each(function(index, item) {
             var imgUrl = "/images/380x180/" + (index + 1) + ".jpg"

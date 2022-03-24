@@ -1,0 +1,19 @@
+ServiceName: uploadBreakPoint
+
+参数格式：
+{
+"MsgId": 915
+"ServiceName": "uploadBreakPoint"
+"local_break_point": "[{"mac":"1","packageid":"3485","serialno":"2","serialbreakpoint":"120","inserttime":"2022-03-24 15:03:00"}]"
+"mac": "1"
+"main_account": "13388132139"
+"sub_account": "13388132139"
+"version_code": 48
+}
+
+local_break_point：播放记录（数组）
+	mac：Mac地址
+	packageid：包组id
+	serialno：集序号
+	serialbreakpoint：断点（秒）
+	inserttime：记录时间

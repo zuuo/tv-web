@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索</title>
+    <link rel="stylesheet" href="../css/public.css">
+    <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../lib/swiper2.7.6.css">
+    <script src="../lib/swiper2.7.6.min.js"></script>
+    <script src="../lib/fix.js"></script>
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../lib/jqScrollIntoView.min.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="keyboard">
+            <div id="input" class="itemGroup">
+                <div id="charsPlaceholder">输入拼音首字母搜索</div>
+                <div id="chars" class="item"></div>
+                <div id="delete">
+                    <svg class="icon">
+                        <use xlink:href="#icon-shanchu"></use>
+                    </svg>
+                </div>
+            </div>
+            <div id="keys">
+                <div class="row itemGroup">
+                    <div class="key item">A</div>
+                    <div class="key item">B</div>
+                    <div class="key item">C</div>
+                    <div class="key item">D</div>
+                    <div class="key item">E</div>
+                    <div class="key item">F</div>
+                </div>
+                <div class="row itemGroup">
+                    <div class="key item">G</div>
+                    <div class="key item">H</div>
+                    <div class="key item">I</div>
+                    <div class="key item">J</div>
+                    <div class="key item">K</div>
+                    <div class="key item">L</div>
+                </div>
+                <div class="row itemGroup">
+                    <div class="key item">M</div>
+                    <div class="key item">N</div>
+                    <div class="key item">O</div>
+                    <div class="key item">P</div>
+                    <div class="key item">Q</div>
+                    <div class="key item">R</div>
+                </div>
+                <div class="row itemGroup">
+                    <div class="key item">S</div>
+                    <div class="key item">T</div>
+                    <div class="key item">U</div>
+                    <div class="key item">V</div>
+                    <div class="key item">W</div>
+                    <div class="key item">X</div>
+                </div>
+                <div class="row itemGroup">
+                    <div class="key item">Y</div>
+                    <div class="key item">Z</div>
+                    <div class="key item">1</div>
+                    <div class="key item">2</div>
+                    <div class="key item">3</div>
+                    <div class="key item">4</div>
+                </div>
+                <div class="row itemGroup">
+                    <div class="key item">5</div>
+                    <div class="key item">6</div>
+                    <div class="key item">7</div>
+                    <div class="key item">8</div>
+                    <div class="key item">9</div>
+                    <div class="key item">0</div>
+                </div>
+            </div>
+            <div id="btns" class="itemGroup">
+                <div class="btn item" id="clear" disableDown="true">清空</div>
+                <div class="btn item" id="submit" disableDown="true">搜索</div>
+            </div>
+        </div>
+        <div id="list">
+            <div class="title">搜索热榜</div>
+        </div>
+    </div>
+</body>
+
+<script src="../font/iconfont.js"></script>
+<script src="../js/public.js"></script>
+<script src="../js/search.js"></script>
+
+</html>
