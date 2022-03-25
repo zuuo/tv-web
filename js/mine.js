@@ -1,6 +1,6 @@
 var pageLimit = 40;
 var showLimit = 10;
-var collectData = {
+var searchData = {
     queryPage: 0,
     list: [],
     maxCount: 1,
@@ -19,7 +19,7 @@ getCollect(true)
 getWatchHistory()
 
 function getCollect(isFirstLoad) {
-    if (collectData.list.length >= collectData.maxCount) {
+    if (searchData.list.length >= searchData.maxCount) {
         return
     }
     publicGetData({
@@ -29,17 +29,17 @@ function getCollect(isFirstLoad) {
 
         ServiceName: "GetVodFromSLClass",
         SecondClass_id: 1,
-        QueryFrom: pageLimit * collectData.queryPage + 1,
-        QueryTo: pageLimit * (collectData.queryPage + 1),
+        QueryFrom: pageLimit * searchData.queryPage + 1,
+        QueryTo: pageLimit * (searchData.queryPage + 1),
 
     }, function(res) {
         if (res.retCode == 0) {
-            collectData.queryPage++;
-            collectData.list = collectData.list.concat(res.Packages);
-            collectData.maxCount = res.ResultCount;
+            searchData.queryPage++;
+            searchData.list = searchData.list.concat(res.Packages);
+            searchData.maxCount = res.ResultCount;
 
             if (isFirstLoad) {
-                showCollectInPage()
+                showSearchInPage()
             }
         } else {
             TVMain.onShowTips(res.retDesc)
@@ -48,6 +48,9 @@ function getCollect(isFirstLoad) {
 }
 
 function getWatchHistory() {
+    if (watchHistoryData.list.length >= watchHistoryData.maxCount) {
+        return
+    }
     publicGetData({
         // ServiceName: "GetWatchedVods",
         // SearchFrom: pageLimit * watchHistoryData.queryPage + 1,
@@ -55,8 +58,8 @@ function getWatchHistory() {
 
         ServiceName: "GetVodFromSLClass",
         SecondClass_id: 2,
-        QueryFrom: pageLimit * collectData.queryPage + 1,
-        QueryTo: pageLimit * (collectData.queryPage + 1),
+        QueryFrom: pageLimit * watchHistoryData.queryPage + 1,
+        QueryTo: pageLimit * (watchHistoryData.queryPage + 1),
     }, function(res) {
         if (res.retCode == 0) {
             watchHistoryData.queryPage++;
@@ -68,9 +71,13 @@ function getWatchHistory() {
     })
 }
 
-function showCollectInPage() {
-    $("#tabContent .item").remove();
-    var showList = collectData.list.slice(collectData.showPage * showLimit, (collectData.showPage + 1) * showLimit)
+function showSearchInPage() {
+    var showList = searchData.list.slice(searchData.showPage * showLimit, (searchData.showPage + 1) * showLimit)
+    if (showList.length) {
+        $("#tabContent .item").remove();
+    } else {
+        return false
+    }
     $(showList).each(function(index, item) {
         var group = $("#tabContent .itemGroup").eq(Math.floor(index / 5))
 
@@ -84,23 +91,23 @@ function showCollectInPage() {
         vod.appendTo(group);
     })
 
-    $("#tabContent .itemGroup .item")
-        .bind("cursorFocus", function() {
-
-        })
     $("#tabContent .itemGroup:last .item")
         .attr("disableDown", true)
         .bind("keyDown", function() {
             getCollect()
-            if (collectData.showPage * showLimit < collectData.list.length) {
+            if (searchData.showPage * showLimit < searchData.list.length) {
                 var columnIndex = $(this).parent().find(".item").index($(this));
-                collectData.showPage++;
-                showCollectInPage()
-                var target = $("#tabContent .itemGroup:first .item").eq(columnIndex);
-                if (target.length == 0) {
-                    target = $("#tabContent .itemGroup:first .item").last();
+                searchData.showPage++;
+                var hsaNextPage = showSearchInPage()
+                if (hsaNextPage) {
+                    var target = $("#tabContent .itemGroup:first .item").eq(columnIndex);
+                    if (target.length == 0) {
+                        target = $("#tabContent .itemGroup:first .item").last();
+                    }
+                    keyControl.setCurItem(target);
+                } else {
+                    searchData.showPage--;
                 }
-                keyControl.setCurItem(target);
             } else {
                 keyControl.shakeItem()
             }
@@ -108,10 +115,10 @@ function showCollectInPage() {
     $("#tabContent .itemGroup:first .item")
         .attr("disableUP", true)
         .bind("keyUp", function() {
-            if (collectData.showPage > 0) {
+            if (searchData.showPage > 0) {
                 var columnIndex = $(this).parent().find(".item").index($(this));
-                collectData.showPage--;
-                showCollectInPage()
+                searchData.showPage--;
+                showSearchInPage()
                 var target = $("#tabContent .itemGroup:last .item").eq(columnIndex);
                 if (target.length == 0) {
                     target = $("#tabContent .itemGroup:last .item").last();
@@ -121,11 +128,17 @@ function showCollectInPage() {
                 keyControl.setCurItem($(".tab.on"))
             }
         })
+    return true
 }
 
 function showHistoryInPage() {
-    $("#tabContent .item").remove();
     var showList = watchHistoryData.list.slice(watchHistoryData.showPage * showLimit, (watchHistoryData.showPage + 1) * showLimit)
+    if (showList.length) {
+        $("#tabContent .item").remove();
+    } else {
+        keyControl.shakeItem()
+        return false
+    }
     $(showList).each(function(index, item) {
         var group = $("#tabContent .itemGroup").eq(Math.floor(index / 5))
 
@@ -139,10 +152,6 @@ function showHistoryInPage() {
         vod.appendTo(group);
     })
 
-    $("#tabContent .itemGroup .item")
-        .bind("cursorFocus", function() {
-
-        })
     $("#tabContent .itemGroup:last .item")
         .attr("disableDown", true)
         .bind("keyDown", function() {
@@ -150,12 +159,16 @@ function showHistoryInPage() {
             if (watchHistoryData.showPage * showLimit < watchHistoryData.list.length) {
                 var columnIndex = $(this).parent().find(".item").index($(this));
                 watchHistoryData.showPage++;
-                showHistoryInPage()
-                var target = $("#tabContent .itemGroup:first .item").eq(columnIndex);
-                if (target.length == 0) {
-                    target = $("#tabContent .itemGroup:first .item").last();
+                var hsaNextPage = showHistoryInPage()
+                if (hsaNextPage) {
+                    var target = $("#tabContent .itemGroup:first .item").eq(columnIndex);
+                    if (target.length == 0) {
+                        target = $("#tabContent .itemGroup:first .item").last();
+                    }
+                    keyControl.setCurItem(target);
+                } else {
+                    watchHistoryData.showPage--;
                 }
-                keyControl.setCurItem(target);
             } else {
                 keyControl.shakeItem()
             }
@@ -176,13 +189,14 @@ function showHistoryInPage() {
                 keyControl.setCurItem($(".tab.on"))
             }
         })
+    return true
 }
 
 $("#collect")
     .attr("disableShake", true)
     .bind("cursorFocus", function() {
-        collectData.showPage = 0
-        showCollectInPage()
+        searchData.showPage = 0
+        showSearchInPage()
         $(".tab.on").removeClass("on")
         $(this).addClass("on");
     })

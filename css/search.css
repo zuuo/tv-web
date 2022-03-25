@@ -6,7 +6,7 @@
 }
 #keyboard {
   float: left;
-  width: 45%;
+  width: 48%;
   height: 100%;
 }
 #keyboard #input {
@@ -118,7 +118,7 @@
   box-shadow: inset 0px 0px 10px 0px #039AFA, 0px 0px 10px 0px #039AFA;
 }
 #list {
-  width: 50%;
+  width: 45%;
   height: 100%;
   float: right;
 }
@@ -126,6 +126,7 @@
   font-size: 28px;
   display: flex;
   align-items: center;
+  height: 32px;
 }
 #list .title::after {
   content: "";
@@ -134,4 +135,53 @@
   height: 1px;
   border-bottom: 1px dashed #033162;
   margin-left: 20px;
+}
+#list #searchContent {
+  width: 100%;
+  height: calc(100% - 32px);
+}
+#list #searchContent .itemGroup {
+  margin-top: 20px;
+}
+#list #searchContent .itemGroup .item {
+  width: calc((100% - 40px * 2) / 3);
+  height: 0;
+  padding-bottom: calc((100% - 40px * 2) / 3 / 326 * 482);
+  position: relative;
+  transition: 200ms;
+  float: left;
+}
+#list #searchContent .itemGroup .item + .item {
+  margin-left: 40px;
+}
+#list #searchContent .itemGroup .item.focus {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  box-shadow: 0 0 5px 2px #fff;
+  border-radius: 3px;
+  transition: 500ms;
+}
+#list #searchContent .itemGroup .item img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+#list #searchContent .itemGroup .item .name {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+  color: #ffffff;
+  text-align: center;
+  font-size: 1.25rem;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
