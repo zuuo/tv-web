@@ -156,7 +156,8 @@ var keyControl = {
     keyBack: function() {
         var target = $(".menu.active");
         if (target.length) {
-            this.setCurItem(target)
+            this.setCurItem(target);
+            $("#recommend").scrollTop(0)
         } else {
             window.history.back()
         }
@@ -190,6 +191,7 @@ var keyControl = {
         this.groups = $(".itemGroup");
     },
     jumpGroup: function(originSize, targetSize, originIndex) {
+        // 不同group之间跳转
         var targetIndex = 0;
         var originSizeMid = originSize / 2;
 
@@ -210,6 +212,9 @@ var keyControl = {
     },
 
     scrollWrapper: function() {
+        // 滚动到中间
+
+        // 只有.wrapper中的元素才滚动
         var wrapper = this.curItem.parents(".wrapper");
         if (wrapper.length == 0) return
         var scrollAnchor = this.curItem.parents(".scrollAnchor");
@@ -238,6 +243,7 @@ var keyControl = {
     },
 
     beforeShakeItem: function(direction) {
+        // 抖动前置条件
         if (this.curItem.hasClass("menu") || this.curItem.attr("disableShake")) {
             return
         } else {
@@ -245,6 +251,7 @@ var keyControl = {
         }
     },
     shakeItem: function(direction) {
+        // 抖动
         var direction = direction || "horizontal";
 
         this.curItem.removeClass("horizontalShake verticalShake");
@@ -254,46 +261,47 @@ var keyControl = {
     },
 
     renderRandomImg: function() {
+        // 给随机图片
         $("#carousel .swiper-slide").each(function(index, item) {
             var imgUrl = "/images/380x180/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
-            $(item).data("pkgId", index + 1)
+            $(item).data("vodId", index + 1)
         })
 
         $(".row-2 .item").each(function(index, item) {
             var imgUrl = "/images/280x150/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
-            $(item).data("pkgId", index + 1)
+            $(item).data("vodId", index + 1)
         })
 
         $(".row-3 .item").each(function(index, item) {
             var imgUrl = "/images/380x180/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
-            $(item).data("pkgId", index + 1)
+            $(item).data("vodId", index + 1)
         })
 
         $(".row-4 .item").each(function(index, item) {
             var imgUrl = "/images/380x180/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
-            $(item).data("pkgId", index + 1)
+            $(item).data("vodId", index + 1)
         })
 
         $(".row-5 .item").each(function(index, item) {
             var imgUrl = "/images/280x150/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
-            $(item).data("pkgId", index + 1)
+            $(item).data("vodId", index + 1)
         })
 
         $(".row-6 .item").each(function(index, item) {
             var imgUrl = "/images/175x240/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
-            $(item).data("pkgId", index + 1)
+            $(item).data("vodId", index + 1)
         })
 
         $(".row-first .item").each(function(index, item) {
             var imgUrl = "/images/175x240/" + (index + 1) + ".jpg"
             $(item).html('<img src="' + imgUrl + '">');
-            $(item).data("pkgId", index + 1)
+            $(item).data("vodId", index + 1)
         })
     }
 }

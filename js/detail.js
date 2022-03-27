@@ -1,5 +1,5 @@
 var pkgId = GetQueryString("pkgId");
-pkgId = 22700;
+pkgId = 22532;
 var pkgInfo = {};
 var episodeData = [];
 var episodePageSize = 10;
@@ -94,9 +94,13 @@ function setPkgDetail() {
         $("#collect").removeClass("collected")
     }
 
-    if (pkgInfo.pkg_assetcount) {
-        $("#assetCount").text("全" + pkgInfo.pkg_assetcount + "集");
-        $("#lastAsset").text(pkgInfo.pkg_assetcount == pkgInfo.pkg_assetidx_latest ? "已完结" : "已更新" + pkgInfo.pkg_assetidx_latest + "集");
+    if (pkgInfo.pkg_type == 3) {
+        $("#assetCount").text("已更新至" + pkgInfo.pkg_assetidx_latest + "期");
+    } else {
+        if (pkgInfo.pkg_serialcount) {
+            $("#assetCount").text("全" + pkgInfo.pkg_serialcount + "集");
+            $("#lastAsset").text(pkgInfo.pkg_serialcount == pkgInfo.pkg_assetidx_latest ? "已完结" : "已更新" + pkgInfo.pkg_assetidx_latest + "集");
+        }
     }
 
     if (pkgInfo.pkg_director) {

@@ -113,13 +113,12 @@ function getSearchDataInPage(isNewSearch) {
     publicGetData({
         ServiceName: "SearchVods",
         chars: searchData.chars || "",
-        key_words: "",
-        Search_type: "所有",
         SearchFrom: searchData.pageLimit * searchData.queryPage + 1,
         SearchTo: searchData.pageLimit * (searchData.queryPage + 1),
     }, function(res) {
         if (res.retCode == 0) {
             searchData.list = searchData.list.concat(res.Packages);
+            console.log(searchData.list.length);
             searchData.queryPage++;
             // searchData.maxCount = res.ResultCount;
             searchData.maxCount = 36;
