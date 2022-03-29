@@ -3,6 +3,7 @@ var recommendName = "recommend-0";
 
 function recommendRenderFun() {
     if ($("#carousel").length > 0) {
+        $("#carousel").hide();
         if (carousel) {
             carousel.destroy();
         }
@@ -20,9 +21,11 @@ function recommendRenderFun() {
                 shadows: true
             }
         });
-        setTimeout(function() {
+
+        requestAnimationFrame(function() {
+            $("#carousel").show();
             carousel.resizeFix()
-        }, 50);
+        })
 
         $("#carousel .item")
             .bind("keyLeft", function() {
@@ -151,7 +154,7 @@ function recommendRenderFun() {
         }
     })
 
-    getRecommendData();
+    // getRecommendData();
 
 }
 
@@ -171,7 +174,7 @@ function getRecommendData() {
         }, function(res) {
             res.getDataTime = new Date().getTime();
             window.localStorage.setItem(recommendName, JSON.stringify(res));
-            setPageData(res, false);
+            // setPageData(res, false);
         }, function() {
 
         });
@@ -213,20 +216,20 @@ function setPageData(res, cacheData) {
             })
         })
 
-        if (thisAnchor == "recommend-0") {
-            $("#carousel .swiper-slide-duplicate").each(function(index, item) {
-                $(item).data("url", $("#carousel .item").not(".swiper-slide-duplicate").eq(index).find("img").data("url"));
+        // if (thisAnchor == "recommend-0") {
+        //     $("#carousel .swiper-slide-duplicate").each(function(index, item) {
+        //         $(item).data("url", $("#carousel .item").not(".swiper-slide-duplicate").eq(index).find("img").data("url"));
 
-                $(item).find("img").data("src", $("#carousel .item").not(".swiper-slide-duplicate").eq(index).find("img").data("src"));
-                loadImage($(item).find("img"), $("#carousel .item").not(".swiper-slide-duplicate").eq(index).find("img").data("src"), showImage);
+        //         $(item).find("img").data("src", $("#carousel .item").not(".swiper-slide-duplicate").eq(index).find("img").data("src"));
+        //         loadImage($(item).find("img"), $("#carousel .item").not(".swiper-slide-duplicate").eq(index).find("img").data("src"), showImage);
 
-                $(item).data({
-                    url: $("#carousel .item").not(".swiper-slide-duplicate").data().url
-                })
-            })
-        } else {
-            firstItem = $(".item:first");
-        }
+        //         $(item).data({
+        //             url: $("#carousel .item").not(".swiper-slide-duplicate").data().url
+        //         })
+        //     })
+        // } else {
+        //     firstItem = $(".item:first");
+        // }
 
         $(".item").not(".swiper-slide").css("transition", "200ms");
 

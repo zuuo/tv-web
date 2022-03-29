@@ -255,7 +255,7 @@ var keyControl = {
         var direction = direction || "horizontal";
 
         this.curItem.removeClass("horizontalShake verticalShake");
-        setTimeout(function() {
+        requestAnimationFrame(function() {
             keyControl.curItem.addClass(direction + "Shake")
         });
     },

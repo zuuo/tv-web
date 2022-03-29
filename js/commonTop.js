@@ -45,7 +45,9 @@ function scrollNotice() {
     var curLeft = 0;
     content.css("left", curLeft)
 
-    noticeTimer = setInterval(function() {
+    noticeTimer = requestAnimationFrame(noticeScrollStep)
+
+    function noticeScrollStep() {
         curLeft += stepWidth;
         if (curLeft > content.width() / 2) {
             curLeft = 0;
@@ -54,5 +56,6 @@ function scrollNotice() {
         } else {
             content.css("left", -curLeft)
         }
-    }, 20)
+        noticeTimer = requestAnimationFrame(noticeScrollStep)
+    }
 }
