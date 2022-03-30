@@ -246,6 +246,13 @@ function setEpisode() {
                 )
             }
         })
+        .bind("keyEnter", function() {
+            // var contentID = $(this).data("program_code");
+            var contentID = $(this).data("pkg_asset_id");
+            var returnUrl = window.location.href;
+            var playerUrl = EPGHost + "/MediaService/FullScreen?ContentID=" + contentID + "&ReturnURL=" + returnUrl;
+            console.log(playerUrl);
+        })
 
     setRelativePackages()
 }

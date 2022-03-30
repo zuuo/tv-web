@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/fix.js"></script>
+    <script src="../lib/jquery.min.js"></script>
+    <script language="javascript">
+        var Mediastr;
+
+        function getMediastr() {
+            Mediastr = window.frames["if_smallscreen"].getMediastr('0000000000000000010000000000000000');
+        }
+    </script>
+</head>
+
+<body bgcolor=”transparent”>
+    <div id="smallvod" style="left:0px; top:0px; width:0px; height:0px;position:absolute;">
+        <script language=”javascript”>
+            var epgdomain = Authentication.CTCGetConfig("EPGDomain");
+            document.write('<iframe name="if_smallscreen" width="0px" height="0px" src="');
+            var last = epgdomain.lastIndexOf("/");
+            var host = epgdomain.substr(0, last);
+            document.write(host);
+            document.write('/MediaService/SmallScreen?ContentID=0000000000000000010000000000000000&Left=0&Top=0&Width=0&Height=0&CycleFlag=0&GetCntFlag=1"');
+            document.write('frameborder="no" scrolling="no"></iframe>');
+
+            document.addEventListener
+        </script>
+    </div>
+</body>
+
+</html>

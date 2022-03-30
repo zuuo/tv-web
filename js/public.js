@@ -9,6 +9,16 @@ var baseData = getBaseData();
 var userInfo;
 login()
 
+var EPGDomain;
+if (window.Authentication && Authentication.CTCGetConfig) {
+    EPGDomain = Authentication.CTCGetConfig("EPGDomain");
+} else {
+    EPGDomain = "/"
+}
+
+var EPGHost = EPGDomain.substr(0, EPGDomain.lastIndexOf("/"));
+
+
 function getBaseData() {
     var baseData = {
         MsgId: "1",
@@ -307,8 +317,11 @@ var keyControl = {
 }
 
 
-$(document).on("keyup", function(e) {
-    switch (e.keyCode) {
+$(document).on("keyup", function(keyEvent) {
+    keyEvent = keyEvent ? keyEvent : window.event;
+    keyEvent.which = keyEvent.which ? keyEvent.which : keyEvent.keyCode;
+
+    switch (keyEvent.which) {
         case 37:
             keyControl.keyLeft()
             break;
