@@ -211,6 +211,7 @@ function setEpisode() {
         .bind("cursorFocus", function() {
             $("#episode .item").removeClass("on")
             $(this).addClass("on")
+            playVideoInSmallScreen()
         })
         .bind("keyDown", function() {
             keyControl.setCurItem($("#episodeGroup .item.on"))
@@ -285,4 +286,10 @@ function setRelativePackages() {
         })
 
     keyControl.init($("#episode .item").first())
+}
+
+function playVideoInSmallScreen() {
+    var curProgram = $("#episode .item.on")
+        // var contentID = curProgram.data("program_code");
+    var contentID = curProgram.data("pkg_asset_id");
 }
